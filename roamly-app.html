@@ -5313,7 +5313,7 @@ function wBuildKeyboard(lang, guesses, target) {
     btn.textContent = key;
     const st = letterState[key];
     if (st) { btn.classList.remove('special'); btn.classList.add(st); }
-    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key });
+    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key === 'ENTER' ? 'Enter' : key });
     return btn;
   };
 
