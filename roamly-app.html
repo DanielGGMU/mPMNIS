@@ -1879,9 +1879,7 @@ body {
 </nav>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ═══════════════════════════════════════════
-   TRANSLATIONS
-═══════════════════════════════════════════ */
+/* TRANSLATIONS */
 const i18n = {
   en: {
     dashboard:'Dashboard', assistant:'AI Assistant', paperwork:'Paperwork',
@@ -1966,9 +1964,7 @@ function applyLang(lang) {
   });
 }
 
-/* ═══════════════════════════════════════════
-   AUTH
-═══════════════════════════════════════════ */
+/* AUTH */
 let authMode = 'login';
 let currentUser = null;
 
@@ -2032,9 +2028,7 @@ function doLogout() {
   showToast('Logged out successfully');
 }
 
-/* ═══════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════ */
+/* NAVIGATION */
 const pageTitles = {
   dashboard:'Dashboard', assistant:'AI Assistant', paperwork:'Paperwork',
   food:'Food & Places', events:'Events', transport:'Transport', calendar:'Calendar',
@@ -2115,9 +2109,7 @@ function closeMobSearch() {
   }, 200);
 }
 
-/* ═══════════════════════════════════════════
-   SEARCH
-═══════════════════════════════════════════ */
+/* SEARCH */
 function doSearch(term) {
   term = term.toLowerCase().trim();
   if (!term) { restoreAllVisible(); return; }
@@ -2134,9 +2126,7 @@ function restoreAllVisible() {
   document.getElementById('events-empty').classList.remove('show');
 }
 
-/* ═══════════════════════════════════════════
-   CHECKLIST
-═══════════════════════════════════════════ */
+/* CHECKLIST */
 function toggleCheck(item) {
   item.classList.toggle('done');
   const box = item.querySelector('.check-box');
@@ -2157,9 +2147,7 @@ function toggleCheck(item) {
   }
 }
 
-/* ═══════════════════════════════════════════
-   NOTIFICATIONS
-═══════════════════════════════════════════ */
+/* NOTIFICATIONS */
 function openNotif() {
   document.getElementById('notif-panel').classList.add('open');
   document.getElementById('notif-backdrop').classList.add('open');
@@ -2174,9 +2162,7 @@ function markRead(item) {
     document.querySelectorAll('.notif-item.unread').length > 0 ? 'block' : 'none';
 }
 
-/* ═══════════════════════════════════════════
-   SETTINGS
-═══════════════════════════════════════════ */
+/* SETTINGS */
 function openSettings() {
   document.getElementById('settings-overlay').classList.add('open');
 }
@@ -2207,9 +2193,7 @@ function saveSettings() {
   showToast('✓ Settings saved');
 }
 
-/* ═══════════════════════════════════════════
-   CURRENCY
-═══════════════════════════════════════════ */
+/* CURRENCY */
 const currencyRates = { EUR: 1, USD: 1.09, PLN: 4.28, CZK: 25.1 };
 const currencySymbols = { EUR: '€', USD: '$', PLN: 'zł', CZK: 'Kč' };
 let activeCurrency = 'EUR';
@@ -2248,9 +2232,7 @@ function applyNewCurrency(newCurrency) {
   showToast('✓ Currency changed to ' + newCurrency);
 }
 
-/* ═══════════════════════════════════════════
-   BUDGET
-═══════════════════════════════════════════ */
+/* BUDGET */
 const budgetData = {
   food:      { icon:'🍽️', label:'Food',      spent:98,  total:150, color:'var(--accent)' },
   transport: { icon:'🚌', label:'Transport', spent:18,  total:60,  color:'var(--accent2)' },
@@ -2315,9 +2297,7 @@ function updateBudgetDisplay() {
   document.getElementById('dash-budget').textContent = sym + convertAmount(left, activeCurrency);
 }
 
-/* ═══════════════════════════════════════════
-   FILE UPLOAD
-═══════════════════════════════════════════ */
+/* FILE UPLOAD */
 function handleFileUpload(input) {
   if (!input.files || input.files.length === 0) return;
   const file = input.files[0];
@@ -2352,9 +2332,7 @@ uploadArea.addEventListener('drop', e => {
   }
 });
 
-/* ═══════════════════════════════════════════
-   FILTERS
-═══════════════════════════════════════════ */
+/* FILTERS */
 function setupFilters(rowId, gridId, emptyId) {
   const row = document.getElementById(rowId);
   if (!row) return;
@@ -2381,9 +2359,7 @@ function setupFilters(rowId, gridId, emptyId) {
 setupFilters('food-filters', 'food-grid', 'food-empty');
 setupFilters('events-filters', 'events-grid', 'events-empty');
 
-/* ═══════════════════════════════════════════
-   CALENDAR
-═══════════════════════════════════════════ */
+/* CALENDAR */
 // Track which events the user has joined (by day+month+year+title key)
 const joinedEventKeys = new Set();
 // Pre-mark the one that starts as "joined" (Slovak Culture Night, Mar 13)
@@ -2566,9 +2542,7 @@ document.addEventListener('click', () => {
   }
 });
 
-/* ═══════════════════════════════════════════
-   EVENTS — JOIN/LEAVE
-═══════════════════════════════════════════ */
+/* EVENTS — JOIN/LEAVE */
 function toggleJoin(btn) {
   const card = btn.closest('.event-card');
   const meta = card.querySelector('.event-card-meta').textContent;
@@ -2617,24 +2591,20 @@ function toggleJoin(btn) {
   }
 }
 
-/* ═══════════════════════════════════════════
-   TRANSPORT
-═══════════════════════════════════════════ */
+/* TRANSPORT */
 function showRoute() {
   document.getElementById('route-result').classList.add('show');
   showToast('✓ Route found — 18 min');
 }
 
-/* ═══════════════════════════════════════════
-   AI CHAT
-═══════════════════════════════════════════ */
+/* AI CHAT */
 const aiResponses = {
-  'Translate my dorm form': "Sure! Upload your document in the Paperwork tab and I'll translate it instantly. Based on typical STU forms, you'll need: passport number, arrival date (DD/MM/YYYY), home address, and emergency contact. Field 7 (Zábezpeka) = €150 security deposit due within 3 days.",
+  'Translate my dorm form': "Sure! Upload your document in the Paperwork tab and I'll translate it instantly. Based on typical STU forms, you'll need: passport number, arrival date (DD/MM/YYYY), home address, and emergency contact. This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the dormitory office directly. Field 7 (Zábezpeka) = €150 security deposit due within 3 days. ",
   'Find food nearby': "From Mlynská dolina: 🥙 Bufet STU (150m, €2–4, student canteen!), 🍕 Balkán Pizza (400m, €3–6, huge slices), ☕ Caffe Kút (200m, €1.5–3, great for studying). All rated by Erasmus students, not tourists!",
   "What's on this weekend?": "This weekend: 🚶 ESN Walking Tour (Sat 10AM, SNP Square, free!) 🏰 Bratislava Castle (Sun 11AM, €5 student) 🎨 Slovak Culture Night (Fri 7PM, €3) 🎵 Jazz at Žilina (Fri 8PM, €5) — calm and cozy, no party vibe!",
   'How do I get a student card?': "1️⃣ International Office, Building A, Room 101, Mon–Fri 9–12. 2️⃣ Bring passport + enrollment confirmation + 1 photo. 3️⃣ Pay €15. 4️⃣ Card ready in 3–5 days. Gives you 50% off transport + museum and restaurant discounts!",
   'Cheap places to eat near STU': "Best budget spots: 🥙 Bufet STU (on campus, €3.50 daily menu incl. soup), 🍜 Pho Saigon (10 min, €4–7, huge portions), 🥗 Fresh Market (8 min, €2–5, vegetarian options). Canteen menu changes daily!",
-  'Translate a Slovak document': "Go to the Paperwork tab and click the upload area! I translate Slovak, Czech, Hungarian and German. Uncertain translations get flagged in yellow, legal clauses get a special warning. I also have a verified field guide for STU dormitory forms!",
+  'Translate a Slovak document': "Go to the Paperwork tab and click the upload area! I translate Slovak, Czech, Hungarian and German. Uncertain translations get flagged in yellow, legal clauses get a special warning. I also have a verified field guide for STU dormitory forms! This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the dormitory office directly.",
   'How does public transport work?': "DPB basics: 🎫 Monthly student pass = €13.20 (vs €24). Buy at DPB office with student ID + passport. 📱 Always validate when boarding (fines = €50). Key lines: Bus 32 (dorm area), Tram 4 (city center), Bus 39 (Old Town). Check Transport tab for routes!"
 };
 const fallback = [
@@ -2679,13 +2649,9 @@ function sendAIInput(cid) {
   setTimeout(() => addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false), 700);
 }
 
-/* ═══════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════ */
+/* TOAST */
 let toastTimer;
-/* ═══════════════════════════════════════════
-   AI FULLSCREEN
-═══════════════════════════════════════════ */
+/* AI FULLSCREEN */
 let aiFullscreen = false;
 function toggleAIFullscreen() {
   aiFullscreen = !aiFullscreen;
@@ -2710,9 +2676,7 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ═══════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════ */
+/* INIT */
 // Session persistence — survive page refresh
 (function restoreSession() {
   try {
@@ -2730,10 +2694,10 @@ function showToast(msg) {
   } catch(e) {}
 })();
 
-/* ═══════════════════════════════════════════
+/* 
    WORDLE WORD LISTS (edit freely — one word per line logically)
    Answers = daily word candidates | Valid = accepted guesses
-═══════════════════════════════════════════ */
+ */
 const WORDLE_WORDS = {
   en: {
     answers: [
