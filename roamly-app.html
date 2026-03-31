@@ -670,13 +670,14 @@ body {
 /* SETTINGS MODAL */
 .settings-modal {
   background: var(--cream); border-radius: 28px;
-  width: 480px; max-width: calc(100vw - 2rem);
-  max-height: 85vh; overflow-y: auto;
-  padding: 2.2rem; box-shadow: 0 32px 80px rgba(15,14,12,0.25);
+  width: 520px; max-width: calc(100vw - 2rem);
+  max-height: min(680px, 92vh); overflow-y: auto;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 32px 80px rgba(15,14,12,0.25);
   animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .settings-section {
-  margin-bottom: 1.8rem; padding-bottom: 1.8rem;
+  margin-bottom: 1.2rem; padding-bottom: 1.2rem;
   border-bottom: 1px solid var(--border);
 }
 .settings-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -832,6 +833,21 @@ body {
 .wordle-reveal-word { font-size:1rem; font-weight:800; margin-top:0.5rem; display:none; }
 .wordle-reveal-word.show { display:block; }
 
+/* ─── AI FULLSCREEN ─── */
+.ai-fullscreen-btn {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.6); font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.ai-fullscreen-btn:hover { background: rgba(255,255,255,0.16); color: var(--cream); }
+#assistant-grid.fs { grid-template-columns: 1fr; }
+#assistant-grid.fs #assistant-sidebar { display: none; }
+#assistant-grid.fs #ai-main-panel {
+  height: calc(100vh - 220px) !important;
+}
+
 /* ─── MOBILE ─── */
 /* ─── MOBILE SEARCH EXPAND ─── */
 .mob-search-bar {
@@ -914,62 +930,85 @@ body {
   body { flex-direction: column; overflow: hidden; height: 100vh; }
   .sidebar { display: none; }
 
-  /* ─── Clean topbar on mobile ─── */
-  .topbar {
-    padding: 0.9rem 1rem;
-    position: relative;
-  }
-  .topbar-title {
-    font-size: 1.05rem; font-weight: 900;
-    flex: 1;
-  }
-  .topbar-right { gap: 0.5rem; }
-  .topbar-search { display: none; } /* hidden — use mob search button instead */
-  .back-btn { display: none; } /* hidden on mobile — use bottom nav */
-  .mob-search-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--card); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 0.9rem; transition: border-color 0.2s;
-    flex-shrink: 0;
-  }
-  .mob-search-btn:hover { border-color: var(--border2); }
+  /* ─── Topbar ─── */
+  .topbar { padding: 0.75rem 1rem; position: relative; gap: 0.5rem; }
+  .topbar-title { font-size: 1.1rem; font-weight: 900; flex: 1; }
+  .topbar-right { gap: 0.45rem; }
+  .topbar-search { display: none; }
+  .back-btn { display: none; }
+  .topbar-btn { width: 38px; height: 38px; }
 
-  .main { overflow-y: auto; overflow-x: hidden; padding-bottom: 74px; }
+  /* ─── Scrollable content ─── */
+  .main { overflow-y: auto; overflow-x: hidden; padding-bottom: 80px; }
 
-  /* ─── 5-tab bottom nav ─── */
+  /* ─── Bottom nav ─── */
   .mobile-nav {
     display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
     background: var(--ink);
-    padding: 0.4rem 0.5rem;
-    padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+    padding: 0.3rem 0.4rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     border-top: 1px solid rgba(255,255,255,0.07);
-    justify-content: space-around; gap: 0.2rem;
+    justify-content: space-around;
   }
   .mob-nav-item {
-    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
-    padding: 0.5rem 0.5rem 0.3rem; cursor: pointer; border-radius: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+    padding: 0.45rem 0.3rem 0.3rem; cursor: pointer; border-radius: 12px;
     color: rgba(255,255,255,0.38); transition: color 0.15s, background 0.15s;
-    flex: 1; min-width: 0;
+    flex: 1; min-width: 0; -webkit-tap-highlight-color: transparent;
   }
-  .mob-nav-item.active {
-    color: var(--cream);
-    background: rgba(232,82,26,0.18);
-  }
-  .mob-nav-icon { font-size: 1.3rem; line-height: 1; }
+  .mob-nav-item.active { color: var(--cream); background: rgba(232,82,26,0.18); }
+  .mob-nav-icon { font-size: 1.25rem; line-height: 1; }
   .mob-nav-label {
-    font-size: 0.55rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.03em;
+    font-size: 0.5rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 52px;
+    max-width: 54px;
   }
-  .mob-nav-item.mob-more .mob-nav-icon { font-size: 1rem; }
 
-  .content { padding: 1rem; }
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .page-header h1 { font-size: 1.7rem; }
+  /* ─── Content & grids ─── */
+  .content { padding: 0.9rem; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 0.9rem; }
+  .page-header { margin-bottom: 1.3rem; }
+  .page-header h1 { font-size: 1.6rem; }
+  .page-header p { font-size: 0.84rem; }
+
+  /* ─── Cards ─── */
+  .card { padding: 1.2rem; border-radius: 16px; }
+  .stat-card .stat-val { font-size: 2rem; }
+  .grid-4 { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+  /* ─── Event cards ─── */
+  .event-card { border-radius: 16px; }
+
+  /* ─── Place cards ─── */
+  .place-thumb { height: 80px; }
+
+  /* ─── AI assistant ─── */
+  #ai-main-panel { height: 420px !important; }
+  #assistant-grid.fs #ai-main-panel { height: calc(100vh - 200px) !important; }
+  .ai-fullscreen-btn { display: none; }
+
+  /* ─── Wordle ─── */
+  .wordle-row { grid-template-columns: repeat(5, 44px); gap: 5px; }
+  .wordle-cell { width: 44px; height: 44px; font-size: 1.2rem; }
+  .wordle-key { height: 42px; min-width: 28px; font-size: 0.72rem; }
+  .wordle-key.wide { max-width: 52px; font-size: 0.62rem; }
+  .wordle-key.special { max-width: 30px; height: 36px; font-size: 0.66rem; }
+
+  /* ─── Modals ─── */
   .notif-panel { width: 100%; }
-  .settings-modal, .login-modal, .budget-modal { max-width: calc(100vw - 1rem); }
+  .settings-modal, .login-modal, .budget-modal { max-width: calc(100vw - 1rem); padding: 1.5rem; }
+
+  /* ─── Filter row ─── */
+  .filter-row { gap: 0.4rem; }
+  .filter-btn { font-size: 0.76rem; padding: 0.35rem 0.85rem; }
+
+  /* ─── Checklist ─── */
+  .checklist-item { padding: 0.6rem 0; }
+
+  /* ─── Budget ─── */
+  .cost-bar-wrap { width: 80px; }
+  .cost-val { width: 60px; font-size: 0.75rem; }
 }
 </style>
 </head>
@@ -1077,7 +1116,37 @@ body {
           <div class="settings-row-label" data-i18n="city_label">City</div>
           <div class="settings-row-sub">Your host city</div>
         </div>
-        <input class="settings-input" id="settings-city" value="Bratislava" />
+        <select class="settings-input" id="settings-city" style="cursor:pointer">
+          <option value="Bratislava">🇸🇰 Bratislava</option>
+          <option value="Prague">🇨🇿 Prague</option>
+          <option value="Warsaw">🇵🇱 Warsaw</option>
+          <option value="Kraków">🇵🇱 Kraków</option>
+          <option value="Budapest">🇭🇺 Budapest</option>
+          <option value="Vienna">🇦🇹 Vienna</option>
+          <option value="Berlin">🇩🇪 Berlin</option>
+          <option value="Munich">🇩🇪 Munich</option>
+          <option value="Amsterdam">🇳🇱 Amsterdam</option>
+          <option value="Barcelona">🇪🇸 Barcelona</option>
+          <option value="Madrid">🇪🇸 Madrid</option>
+          <option value="Lisbon">🇵🇹 Lisbon</option>
+          <option value="Rome">🇮🇹 Rome</option>
+          <option value="Milan">🇮🇹 Milan</option>
+          <option value="Paris">🇫🇷 Paris</option>
+          <option value="Lyon">🇫🇷 Lyon</option>
+          <option value="Brussels">🇧🇪 Brussels</option>
+          <option value="Copenhagen">🇩🇰 Copenhagen</option>
+          <option value="Stockholm">🇸🇪 Stockholm</option>
+          <option value="Helsinki">🇫🇮 Helsinki</option>
+          <option value="Athens">🇬🇷 Athens</option>
+          <option value="Bucharest">🇷🇴 Bucharest</option>
+          <option value="Sofia">🇧🇬 Sofia</option>
+          <option value="Zagreb">🇭🇷 Zagreb</option>
+          <option value="Ljubljana">🇸🇮 Ljubljana</option>
+          <option value="Tallinn">🇪🇪 Tallinn</option>
+          <option value="Riga">🇱🇻 Riga</option>
+          <option value="Vilnius">🇱🇹 Vilnius</option>
+          <option value="Other">🌍 Other</option>
+        </select>
       </div>
     </div>
 
@@ -1365,11 +1434,12 @@ body {
         <h1>Your <em>smart</em> companion ✦</h1>
         <p>Ask anything about student life in Bratislava</p>
       </div>
-      <div class="grid-2">
-        <div class="ai-section" style="height:500px;display:flex;flex-direction:column">
+      <div class="grid-2" id="assistant-grid">
+        <div class="ai-section" id="ai-main-panel" style="height:500px;display:flex;flex-direction:column">
           <div class="ai-header">
             <div class="ai-avatar">✦</div>
-            <div><div class="ai-name">Roamly Assistant</div><div class="ai-status">● Online · Ready to help</div></div>
+            <div style="flex:1"><div class="ai-name">Roamly Assistant</div><div class="ai-status">● Online · Ready to help</div></div>
+            <button class="ai-fullscreen-btn" id="ai-fs-btn" onclick="toggleAIFullscreen()" title="Fullscreen">⛶</button>
           </div>
           <div class="ai-messages" id="ai-messages-main" style="flex:1;max-height:none">
             <div class="ai-msg"><div class="msg-avatar">✦</div><div class="msg-bubble">Hello! I can help with paperwork translation, finding places to eat, navigating Bratislava, local events, and more. What do you need?</div></div>
@@ -1385,7 +1455,7 @@ body {
             <button class="ai-send" onclick="sendAIInput('main')">Send →</button>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:1.2rem">
+        <div id="assistant-sidebar" style="display:flex;flex-direction:column;gap:1.2rem">
           <div class="card">
             <div class="card-label">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.4rem">
@@ -1450,6 +1520,8 @@ body {
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 2</span> — Číslo pasu = <strong>Passport number</strong></div>
             <div class="tip-box"><span style="color:var(--accent4);font-weight:900">Field 3 ⚠</span> — Dátum príchodu = <strong>Arrival date (DD/MM/YYYY)</strong></div>
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 4</span> — Domáca adresa = <strong>Home address (your country)</strong></div>
+            <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 5</span> — Štátna príslušnosť = <strong>Nationality</strong></div>
+            <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 6</span> — Kontaktná osoba = <strong>Emergency contact (name + phone)</strong></div>
             <div class="warn-box">⚠ Field 7 — Zábezpeka = <strong>Security deposit (€150, within 3 days)</strong> — Read carefully before signing</div>
           </div>
         </div>
@@ -1965,9 +2037,9 @@ function navigate(id, el) {
   if (el && el.classList.contains('nav-item')) el.classList.add('active');
   const dict = i18n[currentLang] || i18n.en;
   document.getElementById('page-title').textContent = dict[id] || pageTitles[id] || id;
-  // Close search
-  document.getElementById('topbar-search').value = '';
+  // Close search (search bar removed)
   restoreAllVisible();
+  document.getElementById('topbar-search').value = '';
   if (id === 'calendar') renderCalendar();
   if (id === 'games') {
     setTimeout(() => {
@@ -2117,7 +2189,8 @@ function setLang(lang, pill) {
   if (lang === 'mix') showToast('🎲 Chaos mode activated! Enjoy your multilingual experience 🤪');
 }
 function saveSettings() {
-  const city = document.getElementById('settings-city').value;
+  const cityEl = document.getElementById('settings-city');
+  const city = cityEl.value.replace(/^.* /, ''); // strip emoji prefix
   document.getElementById('sidebar-city').textContent = city;
   closeSettings();
   showToast('✓ Settings saved');
@@ -2599,6 +2672,25 @@ function sendAIInput(cid) {
    TOAST
 ═══════════════════════════════════════════ */
 let toastTimer;
+/* ═══════════════════════════════════════════
+   AI FULLSCREEN
+═══════════════════════════════════════════ */
+let aiFullscreen = false;
+function toggleAIFullscreen() {
+  aiFullscreen = !aiFullscreen;
+  const grid = document.getElementById('assistant-grid');
+  const btn = document.getElementById('ai-fs-btn');
+  if (aiFullscreen) {
+    grid.classList.add('fs');
+    btn.textContent = '✕';
+    btn.title = 'Exit fullscreen';
+  } else {
+    grid.classList.remove('fs');
+    btn.textContent = '⛶';
+    btn.title = 'Fullscreen';
+  }
+}
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -5142,6 +5234,7 @@ const WORDLE_WORDS = {
   }
 };
 
+
 // Language-specific keyboard layouts
 const KB_LAYOUTS = {
   en: {
@@ -5313,7 +5406,7 @@ function wBuildKeyboard(lang, guesses, target) {
     btn.textContent = key;
     const st = letterState[key];
     if (st) { btn.classList.remove('special'); btn.classList.add(st); }
-    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key === 'ENTER' ? 'Enter' : key });
+    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key });
     return btn;
   };
 
