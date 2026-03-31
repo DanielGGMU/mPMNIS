@@ -671,23 +671,22 @@ body {
 .settings-modal {
   background: var(--cream); border-radius: 28px;
   width: 520px; max-width: calc(100vw - 2rem);
-  max-height: min(680px, 92vh); overflow-y: auto;
-  padding: 1.8rem 2rem;
+  padding: 1.4rem 1.6rem;
   box-shadow: 0 32px 80px rgba(15,14,12,0.25);
   animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .settings-section {
-  margin-bottom: 1.2rem; padding-bottom: 1.2rem;
+  margin-bottom: 0.85rem; padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--border);
 }
 .settings-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .settings-section-title {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
 }
 .settings-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0.7rem 0; gap: 1rem;
+  padding: 0.45rem 0; gap: 1rem;
 }
 .settings-row-label { font-size: 0.9rem; font-weight: 700; }
 .settings-row-sub { font-size: 0.77rem; color: var(--muted); font-weight: 500; margin-top: 0.15rem; }
@@ -1100,7 +1099,7 @@ body {
 <!-- ═══ SETTINGS MODAL ═══ -->
 <div class="overlay" id="settings-overlay" onclick="closeSettingsOutside(event)">
   <div class="settings-modal" onclick="event.stopPropagation()">
-    <div class="section-hdr" style="margin-bottom:1.6rem">
+    <div class="section-hdr" style="margin-bottom:1.1rem">
       <h2 style="font-size:1.3rem" data-i18n="settings">Settings</h2>
       <div class="notif-close" onclick="closeSettings()">✕</div>
     </div>
@@ -1117,7 +1116,7 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="city_label">City</div>
-          <div class="settings-row-sub">Your host city</div>
+          <div class="settings-row-sub" data-i18n="city_sub">Your host city</div>
         </div>
         <select class="settings-input" id="settings-city" style="cursor:pointer">
           <option value="Bratislava">🇸🇰 Bratislava</option>
@@ -1158,7 +1157,7 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="language">Interface language</div>
-          <div class="settings-row-sub">Changes UI labels</div>
+          <div class="settings-row-sub" data-i18n="language_sub">Changes UI labels</div>
         </div>
         <div class="lang-pills">
           <div class="lang-pill active" onclick="setLang('en',this)">EN</div>
@@ -1174,14 +1173,14 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="push_notif">Push notifications</div>
-          <div class="settings-row-sub">Deadlines, events, AI alerts</div>
+          <div class="settings-row-sub" data-i18n="push_notif_sub">Deadlines, events, AI alerts</div>
         </div>
         <div class="toggle-switch on" id="toggle-notif" onclick="toggleSetting(this)"></div>
       </div>
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="deadline_reminders">Deadline reminders</div>
-          <div class="settings-row-sub">24h before due date</div>
+          <div class="settings-row-sub" data-i18n="deadline_sub">24h before due date</div>
         </div>
         <div class="toggle-switch on" id="toggle-deadlines" onclick="toggleSetting(this)"></div>
       </div>
@@ -1192,7 +1191,7 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="currency">Currency</div>
-          <div class="settings-row-sub">Shown throughout the app</div>
+          <div class="settings-row-sub" data-i18n="currency_sub">Shown throughout the app</div>
         </div>
         <select class="settings-input" id="settings-currency" style="cursor:pointer" onchange="applyNewCurrency(this.value)">
           <option value="EUR">€ EUR</option>
@@ -1204,7 +1203,7 @@ body {
     </div>
 
     <div style="display:flex;gap:0.7rem;margin-top:0.5rem">
-      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveSettings()">Save Settings</button>
+      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveSettings()" data-i18n="save_settings">Save Settings</button>
       <button class="btn-outline" onclick="doLogout()" style="color:var(--accent);border-color:rgba(232,82,26,0.3)" data-i18n="logout">Log out</button>
     </div>
   </div>
@@ -1900,6 +1899,9 @@ const i18n = {
     currency:'Currency', profile_section:'Profile', city_label:'City',
     send:'Send', save:'Save', cancel:'Cancel',
     games:'Games',
+    city_sub:'Your host city', language_sub:'Changes UI labels',
+    push_notif_sub:'Deadlines, events, AI alerts', deadline_sub:'24h before due date',
+    currency_sub:'Shown throughout the app', save_settings:'Save Settings',
   },
   pl: {
     dashboard:'Panel główny', assistant:'Asystent AI', paperwork:'Dokumenty',
@@ -1917,6 +1919,9 @@ const i18n = {
     currency:'Waluta', profile_section:'Profil', city_label:'Miasto',
     send:'Wyślij', save:'Zapisz', cancel:'Anuluj',
     games:'Gry',
+    city_sub:'Twoje miasto goszczące', language_sub:'Zmienia etykiety interfejsu',
+    push_notif_sub:'Terminy, wydarzenia, alerty AI', deadline_sub:'24h przed terminem',
+    currency_sub:'Wyświetlana w całej aplikacji', save_settings:'Zapisz ustawienia',
   },
   sk: {
     dashboard:'Prehľad', assistant:'AI Asistent', paperwork:'Dokumenty',
@@ -1934,6 +1939,9 @@ const i18n = {
     currency:'Mena', profile_section:'Profil', city_label:'Mesto',
     send:'Odoslať', save:'Uložiť', cancel:'Zrušiť',
     games:'Hry',
+    city_sub:'Vaše hostiteľské mesto', language_sub:'Zmení popisky rozhrania',
+    push_notif_sub:'Termíny, udalosti, AI upozornenia', deadline_sub:'24h pred termínom',
+    currency_sub:'Zobrazená v celej aplikácii', save_settings:'Uložiť nastavenia',
   }
 };
 let currentLang = 'en';
