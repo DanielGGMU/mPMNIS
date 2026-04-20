@@ -832,6 +832,102 @@ body {
 .wordle-reveal-word { font-size:1rem; font-weight:800; margin-top:0.5rem; display:none; }
 .wordle-reveal-word.show { display:block; }
 
+/* ─── XAI EXPLANATION CARDS ─── */
+.xai-card {
+  background: linear-gradient(135deg,rgba(45,107,228,0.04),rgba(155,114,240,0.04));
+  border: 1px solid rgba(45,107,228,0.16); border-radius: 16px;
+  padding: 1rem 1.2rem; margin-top: 0.75rem; animation: fadeUp 0.3s ease both;
+}
+.xai-pill {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent2); background: rgba(45,107,228,0.1);
+  padding: 0.18rem 0.6rem; border-radius: 2rem; margin-bottom: 0.7rem;
+}
+.xai-card-title { font-size: 0.8rem; font-weight: 800; margin-bottom: 0.7rem; letter-spacing: -0.01em; }
+/* Feature Attribution */
+.xai-feature-row { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.42rem; }
+.xai-feat-name { font-size: 0.73rem; font-weight: 700; color: var(--muted); width: 120px; flex-shrink: 0; }
+.xai-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.xai-bar-fill { height: 100%; border-radius: 3px; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+.xai-pct { font-size: 0.72rem; font-weight: 900; width: 30px; text-align: right; letter-spacing: -0.02em; }
+/* Confidence */
+.xai-conf-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.55rem; }
+.xai-conf-badge {
+  font-size: 0.78rem; font-weight: 900; padding: 0.26rem 0.75rem; border-radius: 2rem;
+}
+.conf-high { background: rgba(34,193,147,0.12); color: var(--accent3); }
+.conf-med  { background: rgba(212,150,42,0.12); color: var(--accent4); }
+.conf-low  { background: rgba(232,82,26,0.1);  color: var(--accent); }
+.xai-conf-meter { width: 100%; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 0.5rem; }
+.xai-conf-fill { height: 100%; border-radius: 3px; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+.xai-conf-note { font-size: 0.73rem; color: var(--muted); font-weight: 600; line-height: 1.5; }
+/* Highlight for low-confidence clause */
+.xai-highlight {
+  background: rgba(212,150,42,0.2); border-bottom: 1.5px solid var(--accent4);
+  border-radius: 3px; padding: 0 2px; cursor: help; position: relative;
+}
+.xai-hl-tip {
+  display: none; position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--cream); font-size: 0.67rem; font-weight: 700;
+  white-space: nowrap; padding: 0.3rem 0.65rem; border-radius: 8px; z-index: 20;
+  pointer-events: none;
+}
+.xai-highlight:hover .xai-hl-tip { display: block; }
+/* Rule-based */
+.xai-rule-card {
+  background: rgba(155,114,240,0.05); border: 1px solid rgba(155,114,240,0.18);
+  border-radius: 12px; padding: 0.65rem 0.9rem;
+  font-size: 0.74rem; line-height: 1.65; color: var(--muted); font-weight: 500;
+  margin-top: 0.6rem; animation: fadeUp 0.3s ease both;
+}
+.xai-rule-pill {
+  font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent5); display: block; margin-bottom: 0.3rem;
+}
+.xai-rule-card .kw { color: var(--accent5); font-weight: 800; }
+/* Counterfactual */
+.xai-counter-card {
+  background: rgba(34,193,147,0.05); border: 1.5px solid rgba(34,193,147,0.22);
+  border-radius: 16px; padding: 1.1rem 1.3rem; margin-top: 1rem;
+  animation: fadeUp 0.3s ease both;
+}
+.xai-counter-top { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; }
+.xai-counter-pill {
+  font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent3); background: rgba(34,193,147,0.1); padding: 0.18rem 0.6rem; border-radius: 2rem;
+}
+.xai-counter-status { font-size: 0.82rem; font-weight: 800; color: var(--accent4); }
+.xai-counter-msg { font-size: 0.83rem; line-height: 1.65; font-weight: 500; color: var(--ink); margin-bottom: 0.7rem; }
+.xai-counter-msg strong { color: var(--accent3); font-weight: 800; }
+.xai-fields { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.xai-field {
+  font-size: 0.68rem; font-weight: 700; padding: 0.18rem 0.55rem;
+  border-radius: 2rem; border: 1px solid transparent;
+}
+.xf-done { background: rgba(34,193,147,0.1); color: var(--accent3); border-color: rgba(34,193,147,0.25); }
+.xf-miss { background: rgba(232,82,26,0.08); color: var(--accent); border-color: rgba(232,82,26,0.2); }
+/* In-chat XAI card on dark background */
+.xai-chat-card {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px; padding: 0.9rem 1.1rem; margin-top: 0.6rem;
+  font-size: 0.78rem;
+}
+.xai-chat-pill {
+  font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(155,114,240,0.9); display: block; margin-bottom: 0.55rem;
+}
+.xai-chat-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.38rem; }
+.xai-chat-feat { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 600; width: 110px; flex-shrink: 0; }
+.xai-chat-bar-wrap { flex: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+.xai-chat-bar-fill { height: 100%; border-radius: 3px; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+.xai-chat-pct { font-size: 0.7rem; font-weight: 900; color: rgba(255,255,255,0.7); width: 28px; text-align: right; }
+.xai-chat-rule { font-size: 0.76rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.xai-chat-rule .kw { color: rgba(155,114,240,0.9); font-weight: 800; }
+.xai-chat-conf { display: flex; align-items: center; gap: 0.6rem; }
+.xai-chat-conf-badge { font-size: 0.76rem; font-weight: 900; padding: 0.2rem 0.65rem; border-radius: 2rem; background: rgba(34,193,147,0.15); color: var(--accent3); }
+.xai-chat-conf-text { font-size: 0.73rem; color: rgba(255,255,255,0.45); font-weight: 600; }
+
 /* ─── AI FULLSCREEN ─── */
 .ai-fullscreen-btn {
   width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
@@ -1385,21 +1481,21 @@ body {
 <div class="overlay" id="budget-overlay" onclick="closeBudgetOutside(event)">
   <div class="budget-modal" onclick="event.stopPropagation()">
     <div class="section-hdr" style="margin-bottom:1.6rem">
-      <h2 style="font-size:1.3rem">Edit Monthly Budget</h2>
+      <h2 style="font-size:1.3rem" data-i18n="budget_edit_title">Edit Monthly Budget</h2>
       <div class="notif-close" onclick="closeBudget()">✕</div>
     </div>
-    <div style="font-size:0.8rem;color:var(--muted);font-weight:600;margin-bottom:1rem">Enter amounts in your selected currency</div>
+    <div style="font-size:0.8rem;color:var(--muted);font-weight:600;margin-bottom:1rem" data-i18n="budget_enter_hint">Enter amounts in your selected currency</div>
     <div id="budget-edit-rows"></div>
     <div class="budget-edit-row" style="margin-top:1rem;border-top:2px solid var(--border2);padding-top:1rem">
-      <div class="budget-edit-label" style="font-size:1rem">💰 Total Budget</div>
+      <div class="budget-edit-label" style="font-size:1rem" data-i18n="budget_total_label">💰 Total Budget</div>
       <div style="display:flex;align-items:center;gap:0.4rem">
-        <span style="font-weight:700;color:var(--muted)">€</span>
+        <span style="font-weight:700;color:var(--muted)" id="budget-modal-sym">€</span>
         <input class="budget-edit-input" id="budget-total-input" type="number" value="350" style="width:90px;font-size:1rem"/>
       </div>
     </div>
     <div style="display:flex;gap:0.7rem;margin-top:1.5rem">
-      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveBudget()">Save Budget</button>
-      <button class="btn-outline" onclick="closeBudget()">Cancel</button>
+      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveBudget()" data-i18n="budget_save">Save Budget</button>
+      <button class="btn-outline" onclick="closeBudget()" data-i18n="cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -1508,7 +1604,7 @@ body {
     <span class="nav-label" data-i18n="calendar">Calendar</span>
   </div>
 
-  <span class="sidebar-section-label">Play</span>
+  <span class="sidebar-section-label" data-i18n="nav_play">Play</span>
   <div class="nav-item" onclick="navigate('games',this)">
     <span class="nav-icon">🎮</span>
     <span class="nav-label" data-i18n="games">Games</span>
@@ -1564,28 +1660,28 @@ body {
           <div class="stat-icon" style="background:rgba(232,82,26,0.1)">📋</div>
           <div class="stat-val" style="color:var(--accent)" id="dash-tasks">3</div>
           <div class="stat-lbl" data-i18n="tasks_today">Tasks today</div>
-          <div class="stat-trend" style="color:var(--accent)">⚠ 2 urgent</div>
+          <div class="stat-trend" style="color:var(--accent)" data-i18n="stat_urgent">⚠ 2 urgent</div>
         </div>
         <div class="card stat-card" onclick="navigate('paperwork',document.querySelectorAll('.nav-item')[2])">
           <span class="stat-edit-hint">click →</span>
           <div class="stat-icon" style="background:rgba(212,150,42,0.1)">📄</div>
           <div class="stat-val" style="color:var(--accent4)" id="dash-docs">4</div>
           <div class="stat-lbl" data-i18n="docs_pending">Docs pending</div>
-          <div class="stat-trend" style="color:var(--accent4)">↑ due this week</div>
+          <div class="stat-trend" style="color:var(--accent4)" data-i18n="stat_due_week">↑ due this week</div>
         </div>
         <div class="card stat-card" onclick="openBudget()" title="Click to edit budget">
-          <span class="stat-edit-hint">✏ edit</span>
+          <span class="stat-edit-hint" data-i18n="stat_edit_hint">✏ edit</span>
           <div class="stat-icon" style="background:rgba(34,193,147,0.1)">💶</div>
           <div class="stat-val" style="color:var(--accent3)" id="dash-budget">€124</div>
           <div class="stat-lbl" data-i18n="budget_left">Budget left</div>
-          <div class="stat-trend" style="color:var(--accent3)">✓ on track</div>
+          <div class="stat-trend" style="color:var(--accent3)" data-i18n="stat_on_track">✓ on track</div>
         </div>
         <div class="card stat-card" onclick="navigate('events',document.querySelectorAll('.nav-item')[4])">
           <span class="stat-edit-hint">click →</span>
           <div class="stat-icon" style="background:rgba(45,107,228,0.1)">🎉</div>
           <div class="stat-val" style="color:var(--accent2)">7</div>
           <div class="stat-lbl" data-i18n="events_nearby">Events nearby</div>
-          <div class="stat-trend" style="color:var(--accent2)">↗ this weekend</div>
+          <div class="stat-trend" style="color:var(--accent2)" data-i18n="stat_this_weekend">↗ this weekend</div>
         </div>
       </div>
 
@@ -1595,13 +1691,13 @@ body {
             <h2 data-i18n="checklist">Day 1–3 Checklist</h2>
             <span class="see-all" onclick="navigate('paperwork',document.querySelectorAll('.nav-item')[2])">View all →</span>
           </div>
-          <div class="checklist-item done" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Get transit card from airport</span><span class="check-tag tag-done">Done</span></div>
-          <div class="checklist-item done" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Check into dormitory</span><span class="check-tag tag-done">Done</span></div>
-          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Submit dormitory registration form</span><span class="check-tag tag-urgent">Urgent</span></div>
-          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Activate student ID card</span><span class="check-tag tag-urgent">Urgent</span></div>
-          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Register at international office</span><span class="check-tag tag-today">Today</span></div>
-          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Open local bank account</span><span class="check-tag tag-week">This week</span></div>
-          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Get local SIM card</span><span class="check-tag tag-week">This week</span></div>
+          <div class="checklist-item done" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Get transit card from airport</span><span class="check-tag tag-done" data-i18n="tag_done">Done</span></div>
+          <div class="checklist-item done" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Check into dormitory</span><span class="check-tag tag-done" data-i18n="tag_done">Done</span></div>
+          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Submit dormitory registration form</span><span class="check-tag tag-urgent" data-i18n="tag_urgent">Urgent</span></div>
+          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Activate student ID card</span><span class="check-tag tag-urgent" data-i18n="tag_urgent">Urgent</span></div>
+          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Register at international office</span><span class="check-tag tag-today" data-i18n="tag_today">Today</span></div>
+          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Open local bank account</span><span class="check-tag tag-week" data-i18n="tag_week">This week</span></div>
+          <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-text">Get local SIM card</span><span class="check-tag tag-week" data-i18n="tag_week">This week</span></div>
         </div>
 
         <div class="ai-section">
@@ -1631,13 +1727,13 @@ body {
             <span class="see-all" onclick="openBudget()">✏ Edit →</span>
           </div>
           <div id="budget-display">
-            <div class="cost-row" onclick="openBudget()"><span class="cost-cat">🍽️ Food</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-food" style="width:65%;background:var(--accent)"></div></div><span class="cost-val" id="val-food">€98 / €150</span></div>
-            <div class="cost-row" onclick="openBudget()"><span class="cost-cat">🚌 Transport</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-transport" style="width:30%;background:var(--accent2)"></div></div><span class="cost-val" id="val-transport">€18 / €60</span></div>
-            <div class="cost-row" onclick="openBudget()"><span class="cost-cat">🎉 Social</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-social" style="width:20%;background:var(--accent5)"></div></div><span class="cost-val" id="val-social">€14 / €70</span></div>
-            <div class="cost-row" onclick="openBudget()"><span class="cost-cat">🛒 Other</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-other" style="width:80%;background:var(--accent4)"></div></div><span class="cost-val" id="val-other">€56 / €70</span></div>
+            <div class="cost-row" onclick="openBudget()"><span class="cost-cat" data-i18n="cat_food">🍽️ Food</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-food" style="width:65%;background:var(--accent)"></div></div><span class="cost-val" id="val-food">€98 / €150</span></div>
+            <div class="cost-row" onclick="openBudget()"><span class="cost-cat" data-i18n="cat_transport">🚌 Transport</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-transport" style="width:30%;background:var(--accent2)"></div></div><span class="cost-val" id="val-transport">€18 / €60</span></div>
+            <div class="cost-row" onclick="openBudget()"><span class="cost-cat" data-i18n="cat_social">🎉 Social</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-social" style="width:20%;background:var(--accent5)"></div></div><span class="cost-val" id="val-social">€14 / €70</span></div>
+            <div class="cost-row" onclick="openBudget()"><span class="cost-cat" data-i18n="cat_other">🛒 Other</span><div class="cost-bar-wrap"><div class="cost-bar-fill" id="bar-other" style="width:80%;background:var(--accent4)"></div></div><span class="cost-val" id="val-other">€56 / €70</span></div>
           </div>
           <div style="margin-top:1rem;padding-top:0.9rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:0.82rem;color:var(--muted);font-weight:600">Spent so far</span>
+            <span style="font-size:0.82rem;color:var(--muted);font-weight:600" data-i18n="spent_so_far">Spent so far</span>
             <strong style="font-size:0.9rem;font-weight:900;letter-spacing:-0.02em" id="budget-total-display">€186 / €350</strong>
           </div>
         </div>
@@ -1670,7 +1766,7 @@ body {
     <!-- ─── AI ASSISTANT ─── -->
     <div class="page" id="page-assistant">
       <div class="page-header">
-        <div class="section-label">Powered by AI</div>
+        <div class="section-label" data-i18n="sublabel_ai">Powered by AI</div>
         <h1>Your <em>smart</em> companion ✦</h1>
         <p>Ask anything about student life in Bratislava</p>
       </div>
@@ -1697,7 +1793,7 @@ body {
         </div>
         <div id="assistant-sidebar" style="display:flex;flex-direction:column;gap:1.2rem">
           <div class="card">
-            <div class="card-label">Quick Actions</div>
+            <div class="card-label" data-i18n="card_quick_actions">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.4rem">
               <div class="doc-item" onclick="navigate('paperwork',document.querySelectorAll('.nav-item')[2])"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Upload & Translate Document</div><div class="doc-sub">Upload a Slovak form to translate</div></div><span style="color:var(--muted);font-weight:800">→</span></div>
               <div class="doc-item" onclick="navigate('food',document.querySelectorAll('.nav-item')[3])"><div class="doc-icon">🍽️</div><div class="doc-info"><div class="doc-name">Find Food Near Me</div><div class="doc-sub">Budget-friendly student restaurants</div></div><span style="color:var(--muted);font-weight:800">→</span></div>
@@ -1705,7 +1801,7 @@ body {
             </div>
           </div>
           <div class="card">
-            <div class="card-label">What I can do</div>
+            <div class="card-label" data-i18n="card_what_i_do">What I can do</div>
             <div style="display:flex;flex-direction:column;gap:0.55rem;margin-top:0.4rem">
               <div class="tip-box">✦ <strong>Document translation</strong> — Slovak, Czech, German, Hungarian</div>
               <div class="tip-box">✦ <strong>Paperwork guidance</strong> — step-by-step form help</div>
@@ -1757,13 +1853,13 @@ body {
     <!-- ─── PAPERWORK ─── -->
     <div class="page" id="page-paperwork">
       <div class="page-header">
-        <div class="section-label">Admin & Docs</div>
+        <div class="section-label" data-i18n="sublabel_admin">Admin & Docs</div>
         <h1>Your <em>paperwork</em> 📄</h1>
         <p>Manage, translate, and track all your official documents</p>
       </div>
       <div class="grid-2" style="margin-bottom:1.3rem">
         <div class="card">
-          <div class="card-label">Upload & Translate</div>
+          <div class="card-label" data-i18n="card_upload">Upload & Translate</div>
           <div class="upload-area" id="upload-area">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="handleFileUpload(this)" id="file-input" />
             <div class="upload-icon">📎</div>
@@ -1774,7 +1870,17 @@ body {
           <div class="translation-result" id="translation-demo">
             <div class="card-label">Translation Result</div>
             <div class="translation-original" id="translation-original">Original: "Nájomná zmluva — Podmienky ubytovacieho zariadenia"</div>
-            <div class="translation-text"><strong>Lease Agreement — Terms of Accommodation Facility</strong><br><br>The tenant is obligated to pay a security deposit of <strong>€150</strong> within 3 working days of arrival. The deposit will be returned within 14 days of checkout, provided no damage has occurred. Mandatory fields marked with * must be completed in <em>block capitals</em>. Passport number and date of arrival are required.</div>
+            <!-- XAI Feature 2: Output Certainty -->
+            <div class="xai-card" style="margin-bottom:0.9rem;margin-top:0.2rem">
+              <div class="xai-pill">🔬 AI Confidence · XAI</div>
+              <div class="xai-conf-row">
+                <span class="xai-conf-badge conf-high">92% Confidence</span>
+                <span style="font-size:0.73rem;color:var(--muted);font-weight:600">Overall translation certainty</span>
+              </div>
+              <div class="xai-conf-meter"><div class="xai-conf-fill" style="width:92%;background:var(--accent3)"></div></div>
+              <div class="xai-conf-note">⚠ 1 clause flagged below 90% — highlighted in the text below. Verify with the dormitory office.</div>
+            </div>
+            <div class="translation-text"><strong>Lease Agreement — Terms of Accommodation Facility</strong><br><br>The tenant is obligated to pay a <span class="xai-highlight">security deposit of <strong>€150</strong> within 3 working days of arrival<span class="xai-hl-tip">⚠ Confidence: 74% — legal clause, verify with office</span></span>. The deposit will be returned within 14 days of checkout, provided no damage has occurred. Mandatory fields marked with * must be completed in <em>block capitals</em>. Passport number and date of arrival are required.</div>
             <div class="translation-warning">⚠️ This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the dormitory office directly.</div>
             <!-- Feedback -->
             <div class="feedback-row" id="translation-feedback-row">
@@ -1786,7 +1892,7 @@ body {
           </div>
         </div>
         <div class="card">
-          <div class="section-hdr"><h2>Document Status</h2></div>
+          <div class="section-hdr"><h2 data-i18n="card_doc_status">Document Status</h2></div>
           <div style="display:flex;flex-direction:column;gap:0.7rem">
             <div class="doc-item"><div class="doc-icon">🏠</div><div class="doc-info"><div class="doc-name">Dormitory Registration</div><div class="doc-sub">Due: March 12 · Office 104</div></div><span class="doc-status status-pending">Pending</span></div>
             <div class="doc-item"><div class="doc-icon">🎓</div><div class="doc-info"><div class="doc-name">Student ID Activation</div><div class="doc-sub">International Office · Bldg A</div></div><span class="doc-status status-pending">Pending</span></div>
@@ -1806,6 +1912,24 @@ body {
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 5</span> — Štátna príslušnosť = <strong>Nationality</strong></div>
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 6</span> — Kontaktná osoba = <strong>Emergency contact (name + phone)</strong></div>
             <div class="warn-box">⚠ Field 7 — Zábezpeka = <strong>Security deposit (€150, within 3 days)</strong> — Read carefully before signing</div>
+          </div>
+          <!-- XAI Feature 4: Counterfactual Explanation -->
+          <div class="xai-counter-card">
+            <div class="xai-counter-top">
+              <span class="xai-counter-pill">✦ AI Form Check · XAI</span>
+              <span class="xai-counter-status">⚠ Form Incomplete</span>
+            </div>
+            <div class="xai-counter-msg">
+              <strong>If you add your Date of Birth (Field 3)</strong>, your form will be complete and meet STU administration standards for submission.
+            </div>
+            <div class="xai-fields">
+              <span class="xai-field xf-done">✓ Full name</span>
+              <span class="xai-field xf-done">✓ Passport number</span>
+              <span class="xai-field xf-miss">✗ Date of Birth</span>
+              <span class="xai-field xf-done">✓ Home address</span>
+              <span class="xai-field xf-done">✓ Nationality</span>
+              <span class="xai-field xf-done">✓ Emergency contact</span>
+            </div>
           </div>
         </div>
         <div class="card">
@@ -1855,18 +1979,18 @@ body {
     <!-- ─── FOOD & PLACES ─── -->
     <div class="page" id="page-food">
       <div class="page-header">
-        <div class="section-label">Eat & Explore</div>
+        <div class="section-label" data-i18n="sublabel_food">Eat & Explore</div>
         <h1>Food & <em>Places</em> 🍽️</h1>
         <p>Rated by Erasmus students — not tourists</p>
       </div>
       <div class="filter-row" id="food-filters">
-        <div class="filter-btn active" data-filter="all">All</div>
-        <div class="filter-btn" data-filter="under5">€ Under €5</div>
-        <div class="filter-btn" data-filter="under10">€€ Under €10</div>
-        <div class="filter-btn" data-filter="nearby">Near Me</div>
-        <div class="filter-btn" data-filter="open">Open Now</div>
-        <div class="filter-btn" data-filter="discount">Student Discount</div>
-        <div class="filter-btn" data-filter="vegetarian">Vegetarian</div>
+        <div class="filter-btn active" data-filter="all" data-i18n="filter_food_all">All</div>
+        <div class="filter-btn" data-filter="under5" data-i18n="filter_under5">€ Under €5</div>
+        <div class="filter-btn" data-filter="under10" data-i18n="filter_under10">€€ Under €10</div>
+        <div class="filter-btn" data-filter="nearby" data-i18n="filter_nearby">Near Me</div>
+        <div class="filter-btn" data-filter="open" data-i18n="filter_open">Open Now</div>
+        <div class="filter-btn" data-filter="discount" data-i18n="filter_discount">Student Discount</div>
+        <div class="filter-btn" data-filter="vegetarian" data-i18n="filter_vegetarian">Vegetarian</div>
       </div>
       <div class="grid-3" id="food-grid" style="margin-bottom:1.3rem">
         <div class="place-card" data-tags="under5 under10 nearby discount">
@@ -1929,42 +2053,75 @@ body {
         <div class="msg">No places match this filter.<br><span style="font-size:0.8rem;font-weight:500">Try a different category.</span></div>
       </div>
       <div class="card">
-        <div class="card-label">Ask AI for personalised recommendations</div>
+        <div class="card-label" data-i18n="card_ask_ai">Ask AI for personalised recommendations</div>
         <div class="ai-input-row" style="margin-top:0.6rem">
           <input class="inline-input" id="ai-input-food" placeholder="e.g. 'Find vegetarian food under €5 near Mlynska dolina'" onkeydown="if(event.key==='Enter')sendAIInput('food')"/>
           <button class="btn-dark" onclick="sendAIInput('food')">Ask AI ✦</button>
         </div>
         <div class="food-ai-resp" id="ai-food-response"></div>
+        <!-- XAI Feature 1: Feature Attribution -->
+        <div class="xai-card" id="food-xai-card" style="display:none">
+          <div class="xai-pill">📊 Why this recommendation? · XAI</div>
+          <div class="xai-card-title" id="food-xai-title">Top pick: Bufet STU</div>
+          <div class="xai-feature-row">
+            <span class="xai-feat-name">⭐ Erasmus Rating</span>
+            <div class="xai-bar-wrap"><div class="xai-bar-fill" style="width:80%;background:var(--accent3)"></div></div>
+            <span class="xai-pct" style="color:var(--accent3)">80%</span>
+          </div>
+          <div class="xai-feature-row">
+            <span class="xai-feat-name">💶 Budget Match</span>
+            <div class="xai-bar-wrap"><div class="xai-bar-fill" style="width:15%;background:var(--accent2)"></div></div>
+            <span class="xai-pct" style="color:var(--accent2)">15%</span>
+          </div>
+          <div class="xai-feature-row">
+            <span class="xai-feat-name">📍 Distance</span>
+            <div class="xai-bar-wrap"><div class="xai-bar-fill" style="width:5%;background:var(--accent4)"></div></div>
+            <span class="xai-pct" style="color:var(--accent4)">5%</span>
+          </div>
+          <div style="font-size:0.72rem;color:var(--muted);font-weight:600;margin-top:0.5rem">Based on 89 Erasmus reviews · 150m from campus · €2–4 per meal</div>
+        </div>
       </div>
     </div>
 
     <!-- ─── EVENTS ─── -->
     <div class="page" id="page-events">
       <div class="page-header">
-        <div class="section-label">Social & Culture</div>
+        <div class="section-label" data-i18n="sublabel_events">Social & Culture</div>
         <h1>Events in <em>Bratislava</em> 🎉</h1>
         <p>Curated for exchange students — calm events included</p>
       </div>
       <div class="filter-row" id="events-filters">
-        <div class="filter-btn active" data-filter="all">All Events</div>
-        <div class="filter-btn" data-filter="esn">ESN Official</div>
-        <div class="filter-btn" data-filter="calm">Calm / Cultural</div>
-        <div class="filter-btn" data-filter="outdoors">Outdoors</div>
-        <div class="filter-btn" data-filter="free">Free Entry</div>
-        <div class="filter-btn" data-filter="weekend">This Weekend</div>
+        <div class="filter-btn active" data-filter="all" data-i18n="filter_all_events">All Events</div>
+        <div class="filter-btn" data-filter="esn" data-i18n="filter_esn">ESN Official</div>
+        <div class="filter-btn" data-filter="calm" data-i18n="filter_calm">Calm / Cultural</div>
+        <div class="filter-btn" data-filter="outdoors" data-i18n="filter_outdoors">Outdoors</div>
+        <div class="filter-btn" data-filter="free" data-i18n="filter_free">Free Entry</div>
+        <div class="filter-btn" data-filter="weekend" data-i18n="filter_weekend">This Weekend</div>
       </div>
       <div class="grid-3" id="events-grid">
         <div class="event-card" data-tags="calm outdoors free weekend">
           <div class="event-header"><span class="event-emoji">🚶</span><div class="event-card-title">Old Town Walking Tour</div><div class="event-card-meta">📅 Sat 14 Mar · 10:00 AM<br>📍 SNP Square · Free entry</div></div>
           <div class="event-footer"><span class="event-type-badge badge-calm">Calm</span><button class="join-btn" onclick="toggleJoin(this)">+ Join</button></div>
+          <div class="xai-rule-card">
+            <span class="xai-rule-pill">✦ Suggested because · XAI</span>
+            <span class="kw">IF</span> preference = calm/non-alcoholic <span class="kw">AND</span> time = morning/afternoon <span class="kw">AND</span> budget = free <span class="kw">THEN</span> suggest Old Town Walking Tour
+          </div>
         </div>
         <div class="event-card" data-tags="calm">
           <div class="event-header"><span class="event-emoji">🎨</span><div class="event-card-title">Slovak Culture Night</div><div class="event-card-meta">📅 Fri 13 Mar · 19:00<br>📍 Cultural Center · €3</div></div>
           <div class="event-footer"><span class="event-type-badge badge-culture">Cultural</span><button class="join-btn joined" onclick="toggleJoin(this)">✓ Going</button></div>
+          <div class="xai-rule-card">
+            <span class="xai-rule-pill">✦ Suggested because · XAI</span>
+            <span class="kw">IF</span> preference = cultural <span class="kw">AND</span> evening = available <span class="kw">AND</span> budget ≤ €5 <span class="kw">THEN</span> suggest Slovak Culture Night
+          </div>
         </div>
         <div class="event-card" data-tags="calm weekend">
           <div class="event-header"><span class="event-emoji">🏰</span><div class="event-card-title">Bratislava Castle Visit</div><div class="event-card-meta">📅 Sun 15 Mar · 11:00 AM<br>📍 Castle Hill · €5 student</div></div>
           <div class="event-footer"><span class="event-type-badge badge-culture">Cultural</span><button class="join-btn" onclick="toggleJoin(this)">+ Join</button></div>
+          <div class="xai-rule-card">
+            <span class="xai-rule-pill">✦ Suggested because · XAI</span>
+            <span class="kw">IF</span> preference = outdoors/cultural <span class="kw">AND</span> day = weekend <span class="kw">AND</span> student discount = active <span class="kw">THEN</span> suggest Bratislava Castle Visit
+          </div>
         </div>
         <div class="event-card" data-tags="esn">
           <div class="event-header"><span class="event-emoji">🌍</span><div class="event-card-title">ESN International Dinner</div><div class="event-card-meta">📅 Wed 18 Mar · 18:00<br>📍 STU Main Hall · €5</div></div>
@@ -2000,13 +2157,13 @@ body {
     <!-- ─── TRANSPORT ─── -->
     <div class="page" id="page-transport">
       <div class="page-header">
-        <div class="section-label">Getting Around</div>
+        <div class="section-label" data-i18n="sublabel_transport">Getting Around</div>
         <h1>Public <em>Transport</em> 🚌</h1>
         <p>Bratislava transit guide for exchange students</p>
       </div>
       <div class="grid-2" style="margin-bottom:1.3rem">
         <div class="card">
-          <div class="card-label" style="margin-bottom:1rem">Plan a Route</div>
+          <div class="card-label" style="margin-bottom:1rem" data-i18n="card_plan_route">Plan a Route</div>
           <div style="display:flex;flex-direction:column;gap:0.7rem">
             <div><div style="font-size:0.7rem;font-weight:700;color:var(--muted);margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.08em">From</div><input class="inline-input" id="route-from" value="Mlynská dolina (Dormitory)"/></div>
             <div><div style="font-size:0.7rem;font-weight:700;color:var(--muted);margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.08em">To</div><input class="inline-input" id="route-to" value="STU Main Campus"/></div>
@@ -2023,7 +2180,7 @@ body {
           </div>
         </div>
         <div class="card">
-          <div class="card-label" style="margin-bottom:1rem">Student Discount Guide</div>
+          <div class="card-label" style="margin-bottom:1rem" data-i18n="card_discount">Student Discount Guide</div>
           <div style="display:flex;flex-direction:column;gap:0.7rem">
             <div class="tip-box"><strong>💳 How to get a student pass</strong><br><span style="color:var(--muted)">1. Go to any DPB office (Mon–Fri 8–16)<br>2. Bring student ID + passport<br>3. Ask for "Mesačné predplatné — Študent"<br>4. Monthly pass = <strong style="color:var(--accent3)">€13.20</strong> (vs €24 regular)</span></div>
             <div class="tip-box"><strong>🚉 Key Lines for STU Students</strong><br><span style="color:var(--muted)">Bus 32, 39 — Mlynská dolina area<br>Tram 4 — City center to campus<br>Bus 93 — Night bus (runs till 2AM)</span></div>
@@ -2031,7 +2188,7 @@ body {
           </div>
         </div>
       </div>
-      <div class="section-hdr"><h2>Common Routes</h2></div>
+      <div class="section-hdr"><h2 data-i18n="card_common_routes">Common Routes</h2></div>
       <div style="display:flex;flex-direction:column;gap:0.8rem">
         <div class="route-card"><div class="route-icon">🏠→🎓</div><div class="route-info"><div class="route-name">Dorm → STU Campus</div><div class="route-stops">Bus 32 (6 stops) + Tram 4 (3 stops)</div></div><div style="text-align:right"><div class="route-time">18 min</div><div class="route-price">€0.70 student</div></div></div>
         <div class="route-card"><div class="route-icon">🏠→🏰</div><div class="route-info"><div class="route-name">Dorm → Old Town / Castle</div><div class="route-stops">Bus 39 (8 stops) · Direct</div></div><div style="text-align:right"><div class="route-time">22 min</div><div class="route-price">€0.70 student</div></div></div>
@@ -2043,7 +2200,7 @@ body {
     <!-- ─── CALENDAR ─── -->
     <div class="page" id="page-calendar">
       <div class="page-header">
-        <div class="section-label">Schedule</div>
+        <div class="section-label" data-i18n="sublabel_schedule">Schedule</div>
         <h1>Your <em>calendar</em> 📅</h1>
         <p>All deadlines, events, and university dates in one place</p>
       </div>
@@ -2079,7 +2236,7 @@ body {
     <!-- ─── GAMES ─── -->
     <div class="page" id="page-games">
       <div class="page-header">
-        <div class="section-label">Daily Challenge</div>
+        <div class="section-label" data-i18n="sublabel_challenge">Daily Challenge</div>
         <h1>🎮 <em>Wordle</em> — 3 languages</h1>
         <p>Guess the 5-letter word. A new word every day — come back tomorrow!</p>
       </div>
@@ -2215,6 +2372,35 @@ const i18n = {
     city_sub:'Your host city', language_sub:'Changes UI labels',
     push_notif_sub:'Deadlines, events, AI alerts', deadline_sub:'24h before due date',
     currency_sub:'Shown throughout the app', save_settings:'Save Settings',
+    spent_so_far:'Spent so far',
+    stat_urgent:'⚠ 2 urgent', stat_due_week:'↑ due this week',
+    stat_on_track:'✓ on track', stat_this_weekend:'↗ this weekend',
+    stat_edit_hint:'✏ edit',
+    filter_all_events:'All Events', filter_esn:'ESN Official',
+    filter_calm:'Calm / Cultural', filter_outdoors:'Outdoors',
+    filter_free:'Free Entry', filter_weekend:'This Weekend',
+    budget_edit_title:'Edit Monthly Budget',
+    budget_enter_hint:'Enter amounts in your selected currency',
+    budget_spent:'Spent', budget_total_label:'💰 Total Budget',
+    budget_save:'Save Budget',
+    cat_food:'🍽️ Food', cat_transport:'🚌 Transport', cat_social:'🎉 Social', cat_other:'🛒 Other',
+    budget_of:'/ of',
+    nav_play:'Play',
+    filter_food_all:'All', filter_under5:'€ Under €5', filter_under10:'€€ Under €10',
+    filter_nearby:'Near Me', filter_open:'Open Now', filter_discount:'Student Discount',
+    filter_vegetarian:'Vegetarian',
+    tag_urgent:'Urgent', tag_today:'Today', tag_week:'This week',
+    tag_done:'Done', tag_pending:'Pending',
+    toast_task_done:'✓ Task completed!',
+    sublabel_ai:'Powered by AI', sublabel_food:'Eat & Explore',
+    sublabel_events:'Social & Culture', sublabel_transport:'Getting Around',
+    sublabel_admin:'Admin & Docs', sublabel_schedule:'Schedule',
+    sublabel_challenge:'Daily Challenge',
+    card_plan_route:'Plan a Route', card_discount:'Student Discount Guide',
+    card_common_routes:'Common Routes',
+    card_quick_actions:'Quick Actions', card_what_i_do:'What I can do',
+    card_upload:'Upload & Translate', card_doc_status:'Document Status',
+    card_ask_ai:'Ask AI for personalised recommendations',
   },
   pl: {
     dashboard:'Panel główny', assistant:'Asystent AI', paperwork:'Dokumenty',
@@ -2235,6 +2421,35 @@ const i18n = {
     city_sub:'Twoje miasto goszczące', language_sub:'Zmienia etykiety interfejsu',
     push_notif_sub:'Terminy, wydarzenia, alerty AI', deadline_sub:'24h przed terminem',
     currency_sub:'Wyświetlana w całej aplikacji', save_settings:'Zapisz ustawienia',
+    spent_so_far:'Wydano do tej pory',
+    stat_urgent:'⚠ 2 pilne', stat_due_week:'↑ termin w tym tygodniu',
+    stat_on_track:'✓ zgodnie z planem', stat_this_weekend:'↗ w ten weekend',
+    stat_edit_hint:'✏ edytuj',
+    filter_all_events:'Wszystkie', filter_esn:'Oficjalne ESN',
+    filter_calm:'Spokojne / Kulturalne', filter_outdoors:'Na zewnątrz',
+    filter_free:'Bezpłatne', filter_weekend:'Ten weekend',
+    budget_edit_title:'Edytuj miesięczny budżet',
+    budget_enter_hint:'Podaj kwoty w wybranej walucie',
+    budget_spent:'Wydano', budget_total_label:'💰 Całkowity budżet',
+    budget_save:'Zapisz budżet',
+    cat_food:'🍽️ Jedzenie', cat_transport:'🚌 Transport', cat_social:'🎉 Życie towarzyskie', cat_other:'🛒 Inne',
+    budget_of:'/ z',
+    nav_play:'Graj',
+    filter_food_all:'Wszystkie', filter_under5:'€ Poniżej 5€', filter_under10:'€€ Poniżej 10€',
+    filter_nearby:'W pobliżu', filter_open:'Otwarte teraz', filter_discount:'Zniżka studencka',
+    filter_vegetarian:'Wegetariańskie',
+    tag_urgent:'Pilne', tag_today:'Dziś', tag_week:'W tym tygodniu',
+    tag_done:'Gotowe', tag_pending:'W toku',
+    toast_task_done:'✓ Zadanie ukończone!',
+    sublabel_ai:'Obsługiwane przez AI', sublabel_food:'Jedz i odkrywaj',
+    sublabel_events:'Społeczność i kultura', sublabel_transport:'Przemieszczanie się',
+    sublabel_admin:'Dokumenty i formalności', sublabel_schedule:'Harmonogram',
+    sublabel_challenge:'Wyzwanie dnia',
+    card_plan_route:'Zaplanuj trasę', card_discount:'Zniżki studenckie',
+    card_common_routes:'Popularne trasy',
+    card_quick_actions:'Szybkie akcje', card_what_i_do:'Co potrafię',
+    card_upload:'Prześlij i przetłumacz', card_doc_status:'Status dokumentów',
+    card_ask_ai:'Zapytaj AI o spersonalizowane rekomendacje',
   },
   sk: {
     dashboard:'Prehľad', assistant:'AI Asistent', paperwork:'Dokumenty',
@@ -2255,6 +2470,35 @@ const i18n = {
     city_sub:'Vaše hostiteľské mesto', language_sub:'Zmení popisky rozhrania',
     push_notif_sub:'Termíny, udalosti, AI upozornenia', deadline_sub:'24h pred termínom',
     currency_sub:'Zobrazená v celej aplikácii', save_settings:'Uložiť nastavenia',
+    spent_so_far:'Doteraz minuté',
+    stat_urgent:'⚠ 2 urgentné', stat_due_week:'↑ termín tento týždeň',
+    stat_on_track:'✓ podľa plánu', stat_this_weekend:'↗ tento víkend',
+    stat_edit_hint:'✏ upraviť',
+    filter_all_events:'Všetky udalosti', filter_esn:'Oficiálne ESN',
+    filter_calm:'Pokojné / Kultúrne', filter_outdoors:'Vonku',
+    filter_free:'Bezplatné', filter_weekend:'Tento víkend',
+    budget_edit_title:'Upraviť mesačný rozpočet',
+    budget_enter_hint:'Zadajte sumy vo zvolenej mene',
+    budget_spent:'Minuté', budget_total_label:'💰 Celkový rozpočet',
+    budget_save:'Uložiť rozpočet',
+    cat_food:'🍽️ Jedlo', cat_transport:'🚌 Doprava', cat_social:'🎉 Spoločenský život', cat_other:'🛒 Ostatné',
+    budget_of:'/ z',
+    nav_play:'Hraj',
+    filter_food_all:'Všetky', filter_under5:'€ Do 5€', filter_under10:'€€ Do 10€',
+    filter_nearby:'V okolí', filter_open:'Otvorené teraz', filter_discount:'Študentská zľava',
+    filter_vegetarian:'Vegetariánske',
+    tag_urgent:'Urgentné', tag_today:'Dnes', tag_week:'Tento týždeň',
+    tag_done:'Hotovo', tag_pending:'Čaká',
+    toast_task_done:'✓ Úloha dokončená!',
+    sublabel_ai:'Poháňané AI', sublabel_food:'Jedz a objavuj',
+    sublabel_events:'Spoločnosť a kultúra', sublabel_transport:'Dopravovanie sa',
+    sublabel_admin:'Dokumenty a formalnosti', sublabel_schedule:'Harmonogram',
+    sublabel_challenge:'Denná výzva',
+    card_plan_route:'Naplánovať trasu', card_discount:'Študentské zľavy',
+    card_common_routes:'Bežné trasy',
+    card_quick_actions:'Rýchle akcie', card_what_i_do:'Čo viem urobiť',
+    card_upload:'Nahrať a preložiť', card_doc_status:'Stav dokumentov',
+    card_ask_ai:'Opýtajte sa AI na personalizované odporúčania',
   }
 };
 let currentLang = 'en';
@@ -2494,17 +2738,18 @@ function toggleCheck(item) {
   item.classList.toggle('done');
   const box = item.querySelector('.check-box');
   const tag = item.querySelector('.check-tag');
+  const dict = i18n[currentLang] || i18n.en;
   if (item.classList.contains('done')) {
     box.textContent = '✓';
     if (tag) {
-      tag.textContent = 'Done';
+      tag.textContent = dict.tag_done || 'Done';
       tag.className = 'check-tag tag-done';
     }
-    showToast('✓ Task completed!');
+    showToast(dict.toast_task_done || '✓ Task completed!');
   } else {
     box.textContent = '';
     if (tag) {
-      tag.textContent = 'Pending';
+      tag.textContent = dict.tag_pending || 'Pending';
       tag.className = 'check-tag tag-week';
     }
   }
@@ -2605,15 +2850,29 @@ const budgetData = {
 
 function openBudget() {
   const rows = document.getElementById('budget-edit-rows');
+  const dict = i18n[currentLang] || i18n.en;
+  const spentLabel = dict.budget_spent || 'Spent';
+  const ofLabel = dict.budget_of || '/ of';
+  const sym = currencySymbols[activeCurrency] || '€';
+  // Update the currency symbol shown in the total row
+  const symEl = document.getElementById('budget-modal-sym');
+  if (symEl) symEl.textContent = sym;
+  // Translate category labels dynamically
+  const catLabels = {
+    food: dict.cat_food || budgetData.food.label,
+    transport: dict.cat_transport || budgetData.transport.label,
+    social: dict.cat_social || budgetData.social.label,
+    other: dict.cat_other || budgetData.other.label,
+  };
   rows.innerHTML = '';
   Object.entries(budgetData).forEach(([key, d]) => {
     rows.innerHTML += `
       <div class="budget-edit-row">
-        <div class="budget-edit-label">${d.icon} ${d.label}</div>
+        <div class="budget-edit-label">${catLabels[key] || d.icon + ' ' + d.label}</div>
         <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--muted);font-weight:600">
-          <span>Spent</span>
+          <span>${spentLabel}</span>
           <input class="budget-edit-input" id="be-spent-${key}" type="number" value="${d.spent}" style="width:72px"/>
-          <span>/ Total</span>
+          <span>${ofLabel}</span>
           <input class="budget-edit-input" id="be-total-${key}" type="number" value="${d.total}" style="width:72px"/>
         </div>
       </div>`;
@@ -2732,7 +2991,10 @@ function setupFilters(rowId, gridId, emptyId, multiSelect) {
       let visible = 0;
       items.forEach(item => {
         const tags = item.getAttribute('data-tags').split(' ');
-        const show = showAll || activeFilters.some(f => tags.includes(f));
+        // Multi-select uses AND (item must match ALL active filters)
+        const show = showAll || (multiSelect
+          ? activeFilters.every(f => tags.includes(f))
+          : activeFilters.some(f => tags.includes(f)));
         item.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -3001,7 +3263,7 @@ const fallback = [
 ];
 let msgCount = 0;
 
-function addMessage(cid, text, isUser) {
+function addMessage(cid, text, isUser, userText) {
   const c = document.getElementById('ai-messages-' + cid);
   if (!c) return;
   const d = document.createElement('div');
@@ -3010,6 +3272,16 @@ function addMessage(cid, text, isUser) {
   c.appendChild(d);
 
   if (!isUser) {
+    // XAI: append explanation card after AI response based on topic
+    const xaiHtml = buildXAIChatCard(userText || text);
+    if (xaiHtml) {
+      const xaiWrapper = document.createElement('div');
+      xaiWrapper.className = 'ai-msg';
+      xaiWrapper.style.paddingLeft = '34px';
+      xaiWrapper.innerHTML = xaiHtml;
+      c.appendChild(xaiWrapper);
+    }
+
     const fbId = 'aifb-' + Date.now();
     const fb = document.createElement('div');
     fb.className = 'ai-msg-feedback';
@@ -3028,7 +3300,7 @@ function sendAIMsg(el, cid) {
   addMessage(cid, text, true);
   el.style.opacity = '0.5';
   setTimeout(() => {
-    addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false);
+    addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false, text);
     el.style.opacity = '';
   }, 700);
 }
@@ -3041,11 +3313,58 @@ function sendAIInput(cid) {
     r.className = 'food-ai-resp show';
     r.innerHTML = '✦ ' + (aiResponses[text] || 'Searching for matching places near you... Check the list above!');
     inp.value = '';
+    // XAI Feature 1: show attribution card after food AI response
+    const xaiCard = document.getElementById('food-xai-card');
+    if (xaiCard) {
+      xaiCard.style.display = '';
+      // Animate bars in after a short delay
+      setTimeout(() => {
+        xaiCard.querySelectorAll('.xai-bar-fill').forEach(b => {
+          const w = b.style.width; b.style.width = '0';
+          setTimeout(() => { b.style.width = w; }, 50);
+        });
+      }, 100);
+    }
     return;
   }
   addMessage(cid, text, true);
   inp.value = '';
-  setTimeout(() => addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false), 700);
+  setTimeout(() => addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false, text), 700);
+}
+
+/* Build XAI chat card HTML based on topic */
+function buildXAIChatCard(userText) {
+  const t = (userText || '').toLowerCase();
+  if (t.includes('food') || t.includes('eat') || t.includes('cheap') || t.includes('vegetarian') || t.includes('restaurant') || t.includes('cafe')) {
+    return `<div class="xai-chat-card">
+      <span class="xai-chat-pill">📊 Why this recommendation? · XAI</span>
+      <div class="xai-chat-row"><span class="xai-chat-feat">⭐ Erasmus Rating</span><div class="xai-chat-bar-wrap"><div class="xai-chat-bar-fill" style="width:80%;background:var(--accent3)"></div></div><span class="xai-chat-pct">80%</span></div>
+      <div class="xai-chat-row"><span class="xai-chat-feat">💶 Budget Match</span><div class="xai-chat-bar-wrap"><div class="xai-chat-bar-fill" style="width:15%;background:var(--accent2)"></div></div><span class="xai-chat-pct">15%</span></div>
+      <div class="xai-chat-row"><span class="xai-chat-feat">📍 Distance</span><div class="xai-chat-bar-wrap"><div class="xai-chat-bar-fill" style="width:5%;background:var(--accent4)"></div></div><span class="xai-chat-pct">5%</span></div>
+      <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;font-weight:600">Ranked by 89 Erasmus reviews · not tourist ratings</div>
+    </div>`;
+  }
+  if (t.includes('translate') || t.includes('document') || t.includes('form') || t.includes('dorm') || t.includes('slovak')) {
+    return `<div class="xai-chat-card">
+      <span class="xai-chat-pill">🔬 AI Confidence · XAI</span>
+      <div class="xai-chat-conf"><span class="xai-chat-conf-badge">92% Confidence</span><span class="xai-chat-conf-text">Overall translation certainty</span></div>
+      <div style="width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;margin:0.5rem 0"><div style="height:100%;width:92%;background:var(--accent3);border-radius:3px"></div></div>
+      <div class="xai-chat-conf-text" style="margin-top:0.1rem">⚠ Legal clauses flagged for manual review — highlighted in the Paperwork tab</div>
+    </div>`;
+  }
+  if (t.includes('event') || t.includes('weekend') || t.includes('tour') || t.includes('walk') || t.includes('calm') || t.includes('cultural')) {
+    return `<div class="xai-chat-card">
+      <span class="xai-chat-pill">✦ Suggested because · XAI</span>
+      <div class="xai-chat-rule"><span class="kw">IF</span> preference = calm/non-alcoholic <span class="kw">AND</span> time = afternoon <span class="kw">THEN</span> suggest City Walking Tour</div>
+    </div>`;
+  }
+  if (t.includes('card') || t.includes('register') || t.includes('id') || t.includes('enroll') || t.includes('administration') || t.includes('admin')) {
+    return `<div class="xai-chat-card">
+      <span class="xai-chat-pill">🔄 How to complete · XAI</span>
+      <div class="xai-chat-rule" style="color:rgba(255,255,255,0.6)">If you <strong style="color:rgba(34,193,147,0.9)">provide your Date of Birth</strong>, your registration form will be complete and meet STU administration standards.</div>
+    </div>`;
+  }
+  return null;
 }
 
 /* TOAST */
