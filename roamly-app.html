@@ -987,8 +987,11 @@ body {
 
   /* ─── AI assistant ─── */
   #ai-main-panel { height: 420px !important; }
-  #assistant-grid.fs #ai-main-panel { height: calc(100vh - 200px) !important; }
-  .ai-fullscreen-btn { display: none; }
+  #assistant-grid.fs #ai-main-panel { height: calc(100vh - 160px) !important; }
+  .ai-fullscreen-btn {
+    display: flex;
+    width: 36px; height: 36px; font-size: 1.1rem;
+  }
 
   /* ─── Wordle ─── */
   .wordle-row { grid-template-columns: repeat(5, 44px); gap: 5px; }
@@ -1011,6 +1014,175 @@ body {
   /* ─── Budget ─── */
   .cost-bar-wrap { width: 80px; }
   .cost-val { width: 60px; font-size: 0.75rem; }
+}
+
+/* ─── AI MESSAGE FEEDBACK ─── */
+.ai-msg-feedback {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-top: 0.35rem; padding-left: 2rem;
+}
+.ai-fb-btn {
+  padding: 0.22rem 0.65rem; border-radius: 2rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.38); font-size: 0.72rem; font-weight: 700;
+  cursor: pointer; font-family: 'Cabinet Grotesk', sans-serif;
+  transition: all 0.18s;
+}
+.ai-fb-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+.ai-fb-btn.ai-fb-up   { color: var(--accent3); border-color: rgba(34,193,147,0.35); background: rgba(34,193,147,0.08); }
+.ai-fb-btn.ai-fb-down { color: var(--accent);  border-color: rgba(232,82,26,0.3);   background: rgba(232,82,26,0.07); }
+.ai-fb-resp {
+  font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.38);
+  padding-left: 2rem; margin-top: 0.15rem;
+  display: none; animation: fadeUp 0.2s ease both;
+}
+.ai-fb-resp.show { display: block; }
+
+/* ─── AI SOURCE CARD ─── */
+.ai-source-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 1.3rem 1.4rem;
+}
+.ai-source-tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent2);
+  background: rgba(45,107,228,0.08); border: 1px solid rgba(45,107,228,0.18);
+  padding: 0.22rem 0.7rem; border-radius: 2rem; margin-bottom: 0.75rem;
+}
+.ai-source-card h3 { font-size: 0.95rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+.ai-source-card p  { font-size: 0.78rem; color: var(--muted); font-weight: 500; line-height: 1.6; margin-bottom: 0.85rem; }
+.ai-source-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+.ai-source-row {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  padding: 0.6rem 0.8rem; background: var(--warm);
+  border: 1px solid var(--border); border-radius: 12px;
+}
+.ai-source-row-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 0.05rem; }
+.ai-source-row-text { flex: 1; }
+.ai-source-row-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.15rem; }
+.ai-source-row-val   { font-size: 0.82rem; font-weight: 600; line-height: 1.5; }
+.ai-source-disclaimer {
+  margin-top: 0.8rem; padding: 0.65rem 0.85rem;
+  background: rgba(232,82,26,0.05); border: 1px solid rgba(232,82,26,0.14);
+  border-radius: 12px; font-size: 0.75rem; color: var(--accent); font-weight: 600; line-height: 1.55;
+}
+
+/* ─── FEEDBACK ─── */
+.feedback-row {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-top: 1rem; padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+.feedback-label {
+  font-size: 0.78rem; font-weight: 600; color: var(--muted); flex: 1;
+}
+.feedback-btn {
+  display: flex; align-items: center; gap: 0.3rem;
+  padding: 0.38rem 0.9rem; border-radius: 2rem;
+  border: 1.5px solid var(--border); background: var(--card);
+  font-size: 0.8rem; font-weight: 700; cursor: pointer;
+  font-family: 'Cabinet Grotesk', sans-serif; color: var(--muted);
+  transition: all 0.18s;
+}
+.feedback-btn:hover { border-color: var(--border2); color: var(--ink); }
+.feedback-btn.selected-up   { background: rgba(34,193,147,0.1);  border-color: rgba(34,193,147,0.4);  color: var(--accent3); }
+.feedback-btn.selected-down { background: rgba(232,82,26,0.08);  border-color: rgba(232,82,26,0.3);   color: var(--accent); }
+.feedback-response {
+  margin-top: 0.6rem; padding: 0.6rem 0.9rem;
+  background: rgba(34,193,147,0.07); border: 1px solid rgba(34,193,147,0.2);
+  border-radius: 12px; font-size: 0.8rem; font-weight: 600; color: var(--accent3);
+  display: none; animation: fadeUp 0.25s ease both;
+}
+.feedback-response.show { display: block; }
+.feedback-response.negative {
+  background: rgba(232,82,26,0.06); border-color: rgba(232,82,26,0.18); color: var(--accent);
+}
+
+/* ─── TRANSLATION SOURCE INFO ─── */
+.source-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 1.4rem 1.6rem;
+  margin-top: 1.3rem;
+}
+.source-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.source-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(45,107,228,0.1); color: var(--accent2);
+  display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+}
+.source-title { font-size: 0.92rem; font-weight: 800; letter-spacing: -0.02em; }
+.source-sub   { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 0.05rem; }
+.source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.9rem; }
+.source-item {
+  padding: 0.8rem 1rem; background: var(--warm);
+  border: 1px solid var(--border); border-radius: 14px;
+}
+.source-item-label {
+  font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.25rem;
+}
+.source-item-val { font-size: 0.85rem; font-weight: 700; }
+.source-note {
+  font-size: 0.78rem; color: var(--muted); font-weight: 500; line-height: 1.6;
+  padding: 0.7rem 0.9rem; background: var(--warm);
+  border-radius: 12px; border: 1px solid var(--border);
+}
+
+/* ─── CONTACT BOX ─── */
+.contact-overlay {
+  position: fixed; inset: 0; background: rgba(15,14,12,0.55);
+  backdrop-filter: blur(4px); z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.contact-overlay.open { opacity: 1; pointer-events: all; }
+.contact-modal {
+  background: var(--cream); border-radius: 28px;
+  width: 420px; max-width: calc(100vw - 2rem);
+  padding: 2.2rem;
+  box-shadow: 0 32px 80px rgba(15,14,12,0.25);
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.contact-modal-header {
+  display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.4rem;
+}
+.contact-modal h2 { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; }
+.contact-modal-sub { font-size: 0.82rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem; }
+.contact-entry {
+  display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.9rem 1rem; background: var(--warm);
+  border: 1px solid var(--border); border-radius: 16px; margin-bottom: 0.65rem;
+  text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.contact-entry:hover { border-color: var(--border2); box-shadow: 0 3px 14px rgba(15,14,12,0.07); }
+.contact-entry-icon {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+.contact-entry-info { flex: 1; }
+.contact-entry-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.18rem; }
+.contact-entry-val   { font-size: 0.9rem; font-weight: 800; letter-spacing: -0.01em; }
+.contact-arrow { font-size: 0.9rem; color: var(--muted); font-weight: 800; }
+.contact-divider {
+  text-align: center; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin: 0.5rem 0;
+}
+.sidebar-contact-btn {
+  display: flex; align-items: center; gap: 0.6rem;
+  width: 100%; margin-top: 0.8rem; padding: 0.58rem 0.9rem;
+  border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06); cursor: pointer;
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 0.8rem;
+  font-weight: 700; color: rgba(255,255,255,0.5);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.sidebar-contact-btn:hover {
+  background: rgba(232,82,26,0.18); color: var(--cream);
+  border-color: rgba(232,82,26,0.3);
 }
 </style>
 </head>
@@ -1232,6 +1404,69 @@ body {
   </div>
 </div>
 
+<!-- ═══ CONTACT OVERLAY ═══ -->
+<div class="contact-overlay" id="contact-overlay" onclick="closeContactOutside(event)">
+  <div class="contact-modal" onclick="event.stopPropagation()">
+    <div class="contact-modal-header">
+      <div>
+        <h2>Get in Touch</h2>
+        <div class="contact-modal-sub">We're here to help with your Erasmus journey</div>
+      </div>
+      <div class="notif-close" onclick="closeContact()">✕</div>
+    </div>
+
+    <a class="contact-entry" href="mailto:support@roamly.app">
+      <div class="contact-entry-icon" style="background:rgba(232,82,26,0.1);">✉</div>
+      <div class="contact-entry-info">
+        <div class="contact-entry-label">Email support</div>
+        <div class="contact-entry-val">support@roamly.app</div>
+      </div>
+      <div class="contact-arrow">→</div>
+    </a>
+
+    <a class="contact-entry" href="https://discord.gg/roamly" target="_blank" rel="noopener">
+      <div class="contact-entry-icon" style="background:rgba(88,101,242,0.1);">💬</div>
+      <div class="contact-entry-info">
+        <div class="contact-entry-label">Discord community</div>
+        <div class="contact-entry-val">discord.gg/roamly</div>
+      </div>
+      <div class="contact-arrow">→</div>
+    </a>
+
+    <div class="contact-divider">or reach us at</div>
+
+    <a class="contact-entry" href="https://instagram.com/roamly.app" target="_blank" rel="noopener">
+      <div class="contact-entry-icon" style="background:rgba(155,114,240,0.1);">📸</div>
+      <div class="contact-entry-info">
+        <div class="contact-entry-label">Instagram</div>
+        <div class="contact-entry-val">@roamly.app</div>
+      </div>
+      <div class="contact-arrow">→</div>
+    </a>
+
+    <a class="contact-entry" href="https://roamly.app/faq" target="_blank" rel="noopener">
+      <div class="contact-entry-icon" style="background:rgba(34,193,147,0.1);">📖</div>
+      <div class="contact-entry-info">
+        <div class="contact-entry-label">FAQ & help docs</div>
+        <div class="contact-entry-val">roamly.app/faq</div>
+      </div>
+      <div class="contact-arrow">→</div>
+    </a>
+
+    <div class="contact-entry" style="cursor:default;">
+      <div class="contact-entry-icon" style="background:rgba(212,150,42,0.1);">📍</div>
+      <div class="contact-entry-info">
+        <div class="contact-entry-label">Office address</div>
+        <div class="contact-entry-val">ul. Janusza Korwin-Kononowicza 67, 21-370 Chrząszczyżewoszyce, powiat Łękołody, Poland</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border);font-size:0.78rem;color:var(--muted);font-weight:500;text-align:center;line-height:1.6">
+      Response time: usually within 24h · Made with ❤️ for Erasmus students
+    </div>
+  </div>
+</div>
+
 <!-- ═══ TOAST ═══ -->
 <div class="toast" id="toast">✓ Done</div>
 
@@ -1288,6 +1523,9 @@ body {
         <div class="user-city">📍 <span id="sidebar-city">Bratislava</span></div>
       </div>
     </div>
+    <button class="sidebar-contact-btn" onclick="openContact()">
+      <span>✉</span><span>Contact & Support</span>
+    </button>
   </div>
 </aside>
 
@@ -1476,6 +1714,42 @@ body {
               <div class="tip-box">✦ <strong>Transit planning</strong> — routes + student discounts</div>
             </div>
           </div>
+          <div class="ai-source-card">
+            <div class="ai-source-tag">🔬 About this AI</div>
+            <h3>How Roamly AI works</h3>
+            <p>Roamly Assistant is powered by a large language model (LLM) trained on broad multilingual data. Here\u2019s what that means for you.</p>
+            <div class="ai-source-rows">
+              <div class="ai-source-row">
+                <div class="ai-source-row-icon">🧠</div>
+                <div class="ai-source-row-text">
+                  <div class="ai-source-row-label">Model type</div>
+                  <div class="ai-source-row-val">Large language model (transformer-based)</div>
+                </div>
+              </div>
+              <div class="ai-source-row">
+                <div class="ai-source-row-icon">📚</div>
+                <div class="ai-source-row-text">
+                  <div class="ai-source-row-label">Training data</div>
+                  <div class="ai-source-row-val">Publicly available text — web pages, books, academic papers, multilingual corpora, and Erasmus-related content</div>
+                </div>
+              </div>
+              <div class="ai-source-row">
+                <div class="ai-source-row-icon">🌍</div>
+                <div class="ai-source-row-text">
+                  <div class="ai-source-row-label">Languages</div>
+                  <div class="ai-source-row-val">English, Slovak, Czech, Polish, Hungarian, German and more</div>
+                </div>
+              </div>
+              <div class="ai-source-row">
+                <div class="ai-source-row-icon">📅</div>
+                <div class="ai-source-row-text">
+                  <div class="ai-source-row-label">Knowledge cutoff</div>
+                  <div class="ai-source-row-val">Static training data — real-time events or new regulations may not be reflected</div>
+                </div>
+              </div>
+            </div>
+            <div class="ai-source-disclaimer">⚠ AI responses are informational only. For legal, medical, or visa-related matters, always verify with an official source or qualified professional.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1502,6 +1776,13 @@ body {
             <div class="translation-original" id="translation-original">Original: "Nájomná zmluva — Podmienky ubytovacieho zariadenia"</div>
             <div class="translation-text"><strong>Lease Agreement — Terms of Accommodation Facility</strong><br><br>The tenant is obligated to pay a security deposit of <strong>€150</strong> within 3 working days of arrival. The deposit will be returned within 14 days of checkout, provided no damage has occurred. Mandatory fields marked with * must be completed in <em>block capitals</em>. Passport number and date of arrival are required.</div>
             <div class="translation-warning">⚠️ This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the dormitory office directly.</div>
+            <!-- Feedback -->
+            <div class="feedback-row" id="translation-feedback-row">
+              <span class="feedback-label">Was this translation helpful?</span>
+              <button class="feedback-btn" id="fb-up" onclick="submitFeedback('up')">👍 Yes</button>
+              <button class="feedback-btn" id="fb-down" onclick="submitFeedback('down')">👎 No</button>
+            </div>
+            <div class="feedback-response" id="feedback-response"></div>
           </div>
         </div>
         <div class="card">
@@ -1536,6 +1817,39 @@ body {
           </div>
         </div>
       </div>
+
+      <!-- ─── TRANSLATION SOURCE INFO ─── -->
+      <div class="source-card">
+        <div class="source-header">
+          <div class="source-icon">🔬</div>
+          <div>
+            <div class="source-title">About This Translation</div>
+            <div class="source-sub">What powers the document translation feature</div>
+          </div>
+        </div>
+        <div class="source-grid">
+          <div class="source-item">
+            <div class="source-item-label">Model</div>
+            <div class="source-item-val">Large language model (LLM)</div>
+          </div>
+          <div class="source-item">
+            <div class="source-item-label">Languages Covered</div>
+            <div class="source-item-val">Slovak, Czech, Hungarian, German</div>
+          </div>
+          <div class="source-item">
+            <div class="source-item-label">Training Data</div>
+            <div class="source-item-val">Publicly available multilingual text corpora, academic and administrative documents, and Erasmus-related materials</div>
+          </div>
+          <div class="source-item">
+            <div class="source-item-label">Knowledge Cutoff</div>
+            <div class="source-item-val">Static model — legal phrasing may have changed since training</div>
+          </div>
+        </div>
+        <div class="source-note">
+          ℹ️ Translations are generated by a general-purpose AI model trained on broad multilingual data. They are intended as a reading aid only and have not been validated by a certified legal translator. For documents with legal consequences — contracts, visa forms, official applications — always consult a qualified translator or the issuing office directly.
+        </div>
+      </div>
+
     </div>
 
     <!-- ─── FOOD & PLACES ─── -->
@@ -1851,6 +2165,7 @@ body {
   <div class="drawer-actions">
     <button class="drawer-action-btn" onclick="openNotif();closeMoreDrawer()">🔔 Notifications</button>
     <button class="drawer-action-btn" onclick="openSettings();closeMoreDrawer()">⚙ Settings</button>
+    <button class="drawer-action-btn" onclick="openContact();closeMoreDrawer()">✉ Contact</button>
   </div>
 </div>
 
@@ -2109,6 +2424,54 @@ function closeMobSearch() {
   }, 200);
 }
 
+/* FEEDBACK */
+/* FEEDBACK */
+function submitAIFeedback(btn, type, fbId) {
+  const upBtn   = document.getElementById(fbId + '-up');
+  const downBtn = document.getElementById(fbId + '-down');
+  const resp    = document.getElementById(fbId + '-resp');
+  upBtn.classList.remove('ai-fb-up');
+  downBtn.classList.remove('ai-fb-down');
+  if (type === 'up') {
+    upBtn.classList.add('ai-fb-up');
+    resp.textContent = '\u2714 Thanks \u2014 glad that helped!';
+  } else {
+    downBtn.classList.add('ai-fb-down');
+    resp.textContent = '\u{1F4AC} Thanks for the feedback \u2014 we\u2019ll use it to improve.';
+  }
+  resp.classList.add('show');
+}
+
+function submitFeedback(type) {
+  const upBtn   = document.getElementById('fb-up');
+  const downBtn = document.getElementById('fb-down');
+  const resp    = document.getElementById('feedback-response');
+
+  upBtn.classList.remove('selected-up');
+  downBtn.classList.remove('selected-down');
+
+  if (type === 'up') {
+    upBtn.classList.add('selected-up');
+    resp.textContent = '\uD83D\uDE4F Thanks! We\u2019re glad the translation was useful.';
+    resp.className = 'feedback-response show';
+  } else {
+    downBtn.classList.add('selected-down');
+    resp.textContent = '📬 Sorry to hear that. Your feedback helps us improve — feel free to reach out via Contact & Support.';
+    resp.className = 'feedback-response show negative';
+  }
+}
+
+/* CONTACT */
+function openContact() {
+  document.getElementById('contact-overlay').classList.add('open');
+}
+function closeContact() {
+  document.getElementById('contact-overlay').classList.remove('open');
+}
+function closeContactOutside(e) {
+  if (e.target === document.getElementById('contact-overlay')) closeContact();
+}
+
 /* SEARCH */
 function doSearch(term) {
   term = term.toLowerCase().trim();
@@ -2333,20 +2696,43 @@ uploadArea.addEventListener('drop', e => {
 });
 
 /* FILTERS */
-function setupFilters(rowId, gridId, emptyId) {
+function setupFilters(rowId, gridId, emptyId, multiSelect) {
   const row = document.getElementById(rowId);
   if (!row) return;
   row.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      row.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
       const filter = btn.getAttribute('data-filter');
+
+      if (!multiSelect) {
+        // Single-select (events)
+        row.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      } else {
+        // Multi-select (food)
+        if (filter === 'all') {
+          // All resets everything else
+          row.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else {
+          // Deactivate "All" when a specific filter is picked
+          row.querySelector('[data-filter="all"]').classList.remove('active');
+          btn.classList.toggle('active');
+          // If nothing is active, fall back to "All"
+          const anyActive = [...row.querySelectorAll('.filter-btn')].some(b => b.classList.contains('active'));
+          if (!anyActive) row.querySelector('[data-filter="all"]').classList.add('active');
+        }
+      }
+
+      // Collect active filters
+      const activeFilters = [...row.querySelectorAll('.filter-btn.active')].map(b => b.getAttribute('data-filter'));
+      const showAll = activeFilters.includes('all');
+
       const grid = document.getElementById(gridId);
       const items = grid.querySelectorAll('[data-tags]');
       let visible = 0;
       items.forEach(item => {
-        const tags = item.getAttribute('data-tags') || '';
-        const show = filter === 'all' || tags.split(' ').includes(filter);
+        const tags = item.getAttribute('data-tags').split(' ');
+        const show = showAll || activeFilters.some(f => tags.includes(f));
         item.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -2356,8 +2742,8 @@ function setupFilters(rowId, gridId, emptyId) {
   });
 }
 
-setupFilters('food-filters', 'food-grid', 'food-empty');
-setupFilters('events-filters', 'events-grid', 'events-empty');
+setupFilters('food-filters',   'food-grid',   'food-empty',   true);
+setupFilters('events-filters', 'events-grid', 'events-empty', false);
 
 /* CALENDAR */
 // Track which events the user has joined (by day+month+year+title key)
@@ -2622,6 +3008,19 @@ function addMessage(cid, text, isUser) {
   d.className = 'ai-msg' + (isUser ? ' user' : '');
   d.innerHTML = `<div class="msg-avatar" style="${isUser ? 'background:rgba(232,82,26,0.2)' : ''}">${isUser ? (currentUser ? currentUser.initials : 'AL') : '✦'}</div><div class="msg-bubble">${text}</div>`;
   c.appendChild(d);
+
+  if (!isUser) {
+    const fbId = 'aifb-' + Date.now();
+    const fb = document.createElement('div');
+    fb.className = 'ai-msg-feedback';
+    fb.innerHTML = `<button class="ai-fb-btn" id="${fbId}-up"   onclick="submitAIFeedback(this,'up','${fbId}')">👍</button><button class="ai-fb-btn" id="${fbId}-down" onclick="submitAIFeedback(this,'down','${fbId}')">👎</button>`;
+    c.appendChild(fb);
+    const resp = document.createElement('div');
+    resp.className = 'ai-fb-resp';
+    resp.id = fbId + '-resp';
+    c.appendChild(resp);
+  }
+
   c.scrollTop = c.scrollHeight;
 }
 function sendAIMsg(el, cid) {
