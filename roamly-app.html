@@ -670,23 +670,23 @@ body {
 /* SETTINGS MODAL */
 .settings-modal {
   background: var(--cream); border-radius: 28px;
-  width: 480px; max-width: calc(100vw - 2rem);
-  max-height: 85vh; overflow-y: auto;
-  padding: 2.2rem; box-shadow: 0 32px 80px rgba(15,14,12,0.25);
+  width: 520px; max-width: calc(100vw - 2rem);
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 32px 80px rgba(15,14,12,0.25);
   animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .settings-section {
-  margin-bottom: 1.8rem; padding-bottom: 1.8rem;
+  margin-bottom: 0.85rem; padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--border);
 }
 .settings-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .settings-section-title {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
 }
 .settings-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0.7rem 0; gap: 1rem;
+  padding: 0.45rem 0; gap: 1rem;
 }
 .settings-row-label { font-size: 0.9rem; font-weight: 700; }
 .settings-row-sub { font-size: 0.77rem; color: var(--muted); font-weight: 500; margin-top: 0.15rem; }
@@ -832,8 +832,25 @@ body {
 .wordle-reveal-word { font-size:1rem; font-weight:800; margin-top:0.5rem; display:none; }
 .wordle-reveal-word.show { display:block; }
 
+/* ─── AI FULLSCREEN ─── */
+.ai-fullscreen-btn {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.6); font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.ai-fullscreen-btn:hover { background: rgba(255,255,255,0.16); color: var(--cream); }
+#assistant-grid.fs { grid-template-columns: 1fr; }
+#assistant-grid.fs #assistant-sidebar { display: none; }
+#assistant-grid.fs #ai-main-panel {
+  height: calc(100vh - 220px) !important;
+}
+
 /* ─── MOBILE ─── */
 /* ─── MOBILE SEARCH EXPAND ─── */
+.mob-search-btn { display: none; }
+
 .mob-search-bar {
   display: none;
   position: absolute; top: 100%; left: 0; right: 0;
@@ -914,62 +931,86 @@ body {
   body { flex-direction: column; overflow: hidden; height: 100vh; }
   .sidebar { display: none; }
 
-  /* ─── Clean topbar on mobile ─── */
-  .topbar {
-    padding: 0.9rem 1rem;
-    position: relative;
-  }
-  .topbar-title {
-    font-size: 1.05rem; font-weight: 900;
-    flex: 1;
-  }
-  .topbar-right { gap: 0.5rem; }
-  .topbar-search { display: none; } /* hidden — use mob search button instead */
-  .back-btn { display: none; } /* hidden on mobile — use bottom nav */
-  .mob-search-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--card); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 0.9rem; transition: border-color 0.2s;
-    flex-shrink: 0;
-  }
-  .mob-search-btn:hover { border-color: var(--border2); }
+  /* ─── Topbar ─── */
+  .topbar { padding: 0.75rem 1rem; position: relative; gap: 0.5rem; }
+  .topbar-title { font-size: 1.1rem; font-weight: 900; flex: 1; }
+  .topbar-right { gap: 0.45rem; }
+  .topbar-search { display: none; }
+  .back-btn { display: none; }
+  .topbar-btn { width: 38px; height: 38px; }
+  .mob-search-btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; flex-shrink: 0; }
 
-  .main { overflow-y: auto; overflow-x: hidden; padding-bottom: 74px; }
+  /* ─── Scrollable content ─── */
+  .main { overflow-y: auto; overflow-x: hidden; padding-bottom: 80px; }
 
-  /* ─── 5-tab bottom nav ─── */
+  /* ─── Bottom nav ─── */
   .mobile-nav {
     display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
     background: var(--ink);
-    padding: 0.4rem 0.5rem;
-    padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+    padding: 0.3rem 0.4rem;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     border-top: 1px solid rgba(255,255,255,0.07);
-    justify-content: space-around; gap: 0.2rem;
+    justify-content: space-around;
   }
   .mob-nav-item {
-    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
-    padding: 0.5rem 0.5rem 0.3rem; cursor: pointer; border-radius: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+    padding: 0.45rem 0.3rem 0.3rem; cursor: pointer; border-radius: 12px;
     color: rgba(255,255,255,0.38); transition: color 0.15s, background 0.15s;
-    flex: 1; min-width: 0;
+    flex: 1; min-width: 0; -webkit-tap-highlight-color: transparent;
   }
-  .mob-nav-item.active {
-    color: var(--cream);
-    background: rgba(232,82,26,0.18);
-  }
-  .mob-nav-icon { font-size: 1.3rem; line-height: 1; }
+  .mob-nav-item.active { color: var(--cream); background: rgba(232,82,26,0.18); }
+  .mob-nav-icon { font-size: 1.25rem; line-height: 1; }
   .mob-nav-label {
-    font-size: 0.55rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.03em;
+    font-size: 0.5rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 52px;
+    max-width: 54px;
   }
-  .mob-nav-item.mob-more .mob-nav-icon { font-size: 1rem; }
 
-  .content { padding: 1rem; }
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .page-header h1 { font-size: 1.7rem; }
+  /* ─── Content & grids ─── */
+  .content { padding: 0.9rem; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 0.9rem; }
+  .page-header { margin-bottom: 1.3rem; }
+  .page-header h1 { font-size: 1.6rem; }
+  .page-header p { font-size: 0.84rem; }
+
+  /* ─── Cards ─── */
+  .card { padding: 1.2rem; border-radius: 16px; }
+  .stat-card .stat-val { font-size: 2rem; }
+  .grid-4 { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+  /* ─── Event cards ─── */
+  .event-card { border-radius: 16px; }
+
+  /* ─── Place cards ─── */
+  .place-thumb { height: 80px; }
+
+  /* ─── AI assistant ─── */
+  #ai-main-panel { height: 420px !important; }
+  #assistant-grid.fs #ai-main-panel { height: calc(100vh - 200px) !important; }
+  .ai-fullscreen-btn { display: none; }
+
+  /* ─── Wordle ─── */
+  .wordle-row { grid-template-columns: repeat(5, 44px); gap: 5px; }
+  .wordle-cell { width: 44px; height: 44px; font-size: 1.2rem; }
+  .wordle-key { height: 42px; min-width: 28px; font-size: 0.72rem; }
+  .wordle-key.wide { max-width: 52px; font-size: 0.62rem; }
+  .wordle-key.special { max-width: 30px; height: 36px; font-size: 0.66rem; }
+
+  /* ─── Modals ─── */
   .notif-panel { width: 100%; }
-  .settings-modal, .login-modal, .budget-modal { max-width: calc(100vw - 1rem); }
+  .settings-modal, .login-modal, .budget-modal { max-width: calc(100vw - 1rem); padding: 1.5rem; }
+
+  /* ─── Filter row ─── */
+  .filter-row { gap: 0.4rem; }
+  .filter-btn { font-size: 0.76rem; padding: 0.35rem 0.85rem; }
+
+  /* ─── Checklist ─── */
+  .checklist-item { padding: 0.6rem 0; }
+
+  /* ─── Budget ─── */
+  .cost-bar-wrap { width: 80px; }
+  .cost-val { width: 60px; font-size: 0.75rem; }
 }
 </style>
 </head>
@@ -1058,7 +1099,7 @@ body {
 <!-- ═══ SETTINGS MODAL ═══ -->
 <div class="overlay" id="settings-overlay" onclick="closeSettingsOutside(event)">
   <div class="settings-modal" onclick="event.stopPropagation()">
-    <div class="section-hdr" style="margin-bottom:1.6rem">
+    <div class="section-hdr" style="margin-bottom:1.1rem">
       <h2 style="font-size:1.3rem" data-i18n="settings">Settings</h2>
       <div class="notif-close" onclick="closeSettings()">✕</div>
     </div>
@@ -1075,9 +1116,39 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="city_label">City</div>
-          <div class="settings-row-sub">Your host city</div>
+          <div class="settings-row-sub" data-i18n="city_sub">Your host city</div>
         </div>
-        <input class="settings-input" id="settings-city" value="Bratislava" />
+        <select class="settings-input" id="settings-city" style="cursor:pointer">
+          <option value="Bratislava">🇸🇰 Bratislava</option>
+          <option value="Prague">🇨🇿 Prague</option>
+          <option value="Warsaw">🇵🇱 Warsaw</option>
+          <option value="Kraków">🇵🇱 Kraków</option>
+          <option value="Budapest">🇭🇺 Budapest</option>
+          <option value="Vienna">🇦🇹 Vienna</option>
+          <option value="Berlin">🇩🇪 Berlin</option>
+          <option value="Munich">🇩🇪 Munich</option>
+          <option value="Amsterdam">🇳🇱 Amsterdam</option>
+          <option value="Barcelona">🇪🇸 Barcelona</option>
+          <option value="Madrid">🇪🇸 Madrid</option>
+          <option value="Lisbon">🇵🇹 Lisbon</option>
+          <option value="Rome">🇮🇹 Rome</option>
+          <option value="Milan">🇮🇹 Milan</option>
+          <option value="Paris">🇫🇷 Paris</option>
+          <option value="Lyon">🇫🇷 Lyon</option>
+          <option value="Brussels">🇧🇪 Brussels</option>
+          <option value="Copenhagen">🇩🇰 Copenhagen</option>
+          <option value="Stockholm">🇸🇪 Stockholm</option>
+          <option value="Helsinki">🇫🇮 Helsinki</option>
+          <option value="Athens">🇬🇷 Athens</option>
+          <option value="Bucharest">🇷🇴 Bucharest</option>
+          <option value="Sofia">🇧🇬 Sofia</option>
+          <option value="Zagreb">🇭🇷 Zagreb</option>
+          <option value="Ljubljana">🇸🇮 Ljubljana</option>
+          <option value="Tallinn">🇪🇪 Tallinn</option>
+          <option value="Riga">🇱🇻 Riga</option>
+          <option value="Vilnius">🇱🇹 Vilnius</option>
+          <option value="Other">🌍 Other</option>
+        </select>
       </div>
     </div>
 
@@ -1086,7 +1157,7 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="language">Interface language</div>
-          <div class="settings-row-sub">Changes UI labels</div>
+          <div class="settings-row-sub" data-i18n="language_sub">Changes UI labels</div>
         </div>
         <div class="lang-pills">
           <div class="lang-pill active" onclick="setLang('en',this)">EN</div>
@@ -1102,14 +1173,14 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="push_notif">Push notifications</div>
-          <div class="settings-row-sub">Deadlines, events, AI alerts</div>
+          <div class="settings-row-sub" data-i18n="push_notif_sub">Deadlines, events, AI alerts</div>
         </div>
         <div class="toggle-switch on" id="toggle-notif" onclick="toggleSetting(this)"></div>
       </div>
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="deadline_reminders">Deadline reminders</div>
-          <div class="settings-row-sub">24h before due date</div>
+          <div class="settings-row-sub" data-i18n="deadline_sub">24h before due date</div>
         </div>
         <div class="toggle-switch on" id="toggle-deadlines" onclick="toggleSetting(this)"></div>
       </div>
@@ -1120,7 +1191,7 @@ body {
       <div class="settings-row">
         <div>
           <div class="settings-row-label" data-i18n="currency">Currency</div>
-          <div class="settings-row-sub">Shown throughout the app</div>
+          <div class="settings-row-sub" data-i18n="currency_sub">Shown throughout the app</div>
         </div>
         <select class="settings-input" id="settings-currency" style="cursor:pointer" onchange="applyNewCurrency(this.value)">
           <option value="EUR">€ EUR</option>
@@ -1132,7 +1203,7 @@ body {
     </div>
 
     <div style="display:flex;gap:0.7rem;margin-top:0.5rem">
-      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveSettings()">Save Settings</button>
+      <button class="btn-dark" style="flex:1;justify-content:center" onclick="saveSettings()" data-i18n="save_settings">Save Settings</button>
       <button class="btn-outline" onclick="doLogout()" style="color:var(--accent);border-color:rgba(232,82,26,0.3)" data-i18n="logout">Log out</button>
     </div>
   </div>
@@ -1365,11 +1436,12 @@ body {
         <h1>Your <em>smart</em> companion ✦</h1>
         <p>Ask anything about student life in Bratislava</p>
       </div>
-      <div class="grid-2">
-        <div class="ai-section" style="height:500px;display:flex;flex-direction:column">
+      <div class="grid-2" id="assistant-grid">
+        <div class="ai-section" id="ai-main-panel" style="height:500px;display:flex;flex-direction:column">
           <div class="ai-header">
             <div class="ai-avatar">✦</div>
-            <div><div class="ai-name">Roamly Assistant</div><div class="ai-status">● Online · Ready to help</div></div>
+            <div style="flex:1"><div class="ai-name">Roamly Assistant</div><div class="ai-status">● Online · Ready to help</div></div>
+            <button class="ai-fullscreen-btn" id="ai-fs-btn" onclick="toggleAIFullscreen()" title="Fullscreen">⛶</button>
           </div>
           <div class="ai-messages" id="ai-messages-main" style="flex:1;max-height:none">
             <div class="ai-msg"><div class="msg-avatar">✦</div><div class="msg-bubble">Hello! I can help with paperwork translation, finding places to eat, navigating Bratislava, local events, and more. What do you need?</div></div>
@@ -1385,7 +1457,7 @@ body {
             <button class="ai-send" onclick="sendAIInput('main')">Send →</button>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:1.2rem">
+        <div id="assistant-sidebar" style="display:flex;flex-direction:column;gap:1.2rem">
           <div class="card">
             <div class="card-label">Quick Actions</div>
             <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.4rem">
@@ -1450,6 +1522,8 @@ body {
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 2</span> — Číslo pasu = <strong>Passport number</strong></div>
             <div class="tip-box"><span style="color:var(--accent4);font-weight:900">Field 3 ⚠</span> — Dátum príchodu = <strong>Arrival date (DD/MM/YYYY)</strong></div>
             <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 4</span> — Domáca adresa = <strong>Home address (your country)</strong></div>
+            <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 5</span> — Štátna príslušnosť = <strong>Nationality</strong></div>
+            <div class="tip-box"><span style="color:var(--accent);font-weight:900">Field 6</span> — Kontaktná osoba = <strong>Emergency contact (name + phone)</strong></div>
             <div class="warn-box">⚠ Field 7 — Zábezpeka = <strong>Security deposit (€150, within 3 days)</strong> — Read carefully before signing</div>
           </div>
         </div>
@@ -1805,9 +1879,7 @@ body {
 </nav>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ═══════════════════════════════════════════
-   TRANSLATIONS
-═══════════════════════════════════════════ */
+/* TRANSLATIONS */
 const i18n = {
   en: {
     dashboard:'Dashboard', assistant:'AI Assistant', paperwork:'Paperwork',
@@ -1825,6 +1897,9 @@ const i18n = {
     currency:'Currency', profile_section:'Profile', city_label:'City',
     send:'Send', save:'Save', cancel:'Cancel',
     games:'Games',
+    city_sub:'Your host city', language_sub:'Changes UI labels',
+    push_notif_sub:'Deadlines, events, AI alerts', deadline_sub:'24h before due date',
+    currency_sub:'Shown throughout the app', save_settings:'Save Settings',
   },
   pl: {
     dashboard:'Panel główny', assistant:'Asystent AI', paperwork:'Dokumenty',
@@ -1842,6 +1917,9 @@ const i18n = {
     currency:'Waluta', profile_section:'Profil', city_label:'Miasto',
     send:'Wyślij', save:'Zapisz', cancel:'Anuluj',
     games:'Gry',
+    city_sub:'Twoje miasto goszczące', language_sub:'Zmienia etykiety interfejsu',
+    push_notif_sub:'Terminy, wydarzenia, alerty AI', deadline_sub:'24h przed terminem',
+    currency_sub:'Wyświetlana w całej aplikacji', save_settings:'Zapisz ustawienia',
   },
   sk: {
     dashboard:'Prehľad', assistant:'AI Asistent', paperwork:'Dokumenty',
@@ -1859,6 +1937,9 @@ const i18n = {
     currency:'Mena', profile_section:'Profil', city_label:'Mesto',
     send:'Odoslať', save:'Uložiť', cancel:'Zrušiť',
     games:'Hry',
+    city_sub:'Vaše hostiteľské mesto', language_sub:'Zmení popisky rozhrania',
+    push_notif_sub:'Termíny, udalosti, AI upozornenia', deadline_sub:'24h pred termínom',
+    currency_sub:'Zobrazená v celej aplikácii', save_settings:'Uložiť nastavenia',
   }
 };
 let currentLang = 'en';
@@ -1883,9 +1964,7 @@ function applyLang(lang) {
   });
 }
 
-/* ═══════════════════════════════════════════
-   AUTH
-═══════════════════════════════════════════ */
+/* AUTH */
 let authMode = 'login';
 let currentUser = null;
 
@@ -1949,9 +2028,7 @@ function doLogout() {
   showToast('Logged out successfully');
 }
 
-/* ═══════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════ */
+/* NAVIGATION */
 const pageTitles = {
   dashboard:'Dashboard', assistant:'AI Assistant', paperwork:'Paperwork',
   food:'Food & Places', events:'Events', transport:'Transport', calendar:'Calendar',
@@ -1965,9 +2042,9 @@ function navigate(id, el) {
   if (el && el.classList.contains('nav-item')) el.classList.add('active');
   const dict = i18n[currentLang] || i18n.en;
   document.getElementById('page-title').textContent = dict[id] || pageTitles[id] || id;
-  // Close search
-  document.getElementById('topbar-search').value = '';
+  // Close search (search bar removed)
   restoreAllVisible();
+  document.getElementById('topbar-search').value = '';
   if (id === 'calendar') renderCalendar();
   if (id === 'games') {
     setTimeout(() => {
@@ -2032,9 +2109,7 @@ function closeMobSearch() {
   }, 200);
 }
 
-/* ═══════════════════════════════════════════
-   SEARCH
-═══════════════════════════════════════════ */
+/* SEARCH */
 function doSearch(term) {
   term = term.toLowerCase().trim();
   if (!term) { restoreAllVisible(); return; }
@@ -2051,9 +2126,7 @@ function restoreAllVisible() {
   document.getElementById('events-empty').classList.remove('show');
 }
 
-/* ═══════════════════════════════════════════
-   CHECKLIST
-═══════════════════════════════════════════ */
+/* CHECKLIST */
 function toggleCheck(item) {
   item.classList.toggle('done');
   const box = item.querySelector('.check-box');
@@ -2074,9 +2147,7 @@ function toggleCheck(item) {
   }
 }
 
-/* ═══════════════════════════════════════════
-   NOTIFICATIONS
-═══════════════════════════════════════════ */
+/* NOTIFICATIONS */
 function openNotif() {
   document.getElementById('notif-panel').classList.add('open');
   document.getElementById('notif-backdrop').classList.add('open');
@@ -2091,9 +2162,7 @@ function markRead(item) {
     document.querySelectorAll('.notif-item.unread').length > 0 ? 'block' : 'none';
 }
 
-/* ═══════════════════════════════════════════
-   SETTINGS
-═══════════════════════════════════════════ */
+/* SETTINGS */
 function openSettings() {
   document.getElementById('settings-overlay').classList.add('open');
 }
@@ -2117,15 +2186,14 @@ function setLang(lang, pill) {
   if (lang === 'mix') showToast('🎲 Chaos mode activated! Enjoy your multilingual experience 🤪');
 }
 function saveSettings() {
-  const city = document.getElementById('settings-city').value;
+  const cityEl = document.getElementById('settings-city');
+  const city = cityEl.value.replace(/^.* /, ''); // strip emoji prefix
   document.getElementById('sidebar-city').textContent = city;
   closeSettings();
   showToast('✓ Settings saved');
 }
 
-/* ═══════════════════════════════════════════
-   CURRENCY
-═══════════════════════════════════════════ */
+/* CURRENCY */
 const currencyRates = { EUR: 1, USD: 1.09, PLN: 4.28, CZK: 25.1 };
 const currencySymbols = { EUR: '€', USD: '$', PLN: 'zł', CZK: 'Kč' };
 let activeCurrency = 'EUR';
@@ -2164,9 +2232,7 @@ function applyNewCurrency(newCurrency) {
   showToast('✓ Currency changed to ' + newCurrency);
 }
 
-/* ═══════════════════════════════════════════
-   BUDGET
-═══════════════════════════════════════════ */
+/* BUDGET */
 const budgetData = {
   food:      { icon:'🍽️', label:'Food',      spent:98,  total:150, color:'var(--accent)' },
   transport: { icon:'🚌', label:'Transport', spent:18,  total:60,  color:'var(--accent2)' },
@@ -2231,9 +2297,7 @@ function updateBudgetDisplay() {
   document.getElementById('dash-budget').textContent = sym + convertAmount(left, activeCurrency);
 }
 
-/* ═══════════════════════════════════════════
-   FILE UPLOAD
-═══════════════════════════════════════════ */
+/* FILE UPLOAD */
 function handleFileUpload(input) {
   if (!input.files || input.files.length === 0) return;
   const file = input.files[0];
@@ -2268,9 +2332,7 @@ uploadArea.addEventListener('drop', e => {
   }
 });
 
-/* ═══════════════════════════════════════════
-   FILTERS
-═══════════════════════════════════════════ */
+/* FILTERS */
 function setupFilters(rowId, gridId, emptyId) {
   const row = document.getElementById(rowId);
   if (!row) return;
@@ -2297,9 +2359,7 @@ function setupFilters(rowId, gridId, emptyId) {
 setupFilters('food-filters', 'food-grid', 'food-empty');
 setupFilters('events-filters', 'events-grid', 'events-empty');
 
-/* ═══════════════════════════════════════════
-   CALENDAR
-═══════════════════════════════════════════ */
+/* CALENDAR */
 // Track which events the user has joined (by day+month+year+title key)
 const joinedEventKeys = new Set();
 // Pre-mark the one that starts as "joined" (Slovak Culture Night, Mar 13)
@@ -2482,9 +2542,7 @@ document.addEventListener('click', () => {
   }
 });
 
-/* ═══════════════════════════════════════════
-   EVENTS — JOIN/LEAVE
-═══════════════════════════════════════════ */
+/* EVENTS — JOIN/LEAVE */
 function toggleJoin(btn) {
   const card = btn.closest('.event-card');
   const meta = card.querySelector('.event-card-meta').textContent;
@@ -2533,24 +2591,20 @@ function toggleJoin(btn) {
   }
 }
 
-/* ═══════════════════════════════════════════
-   TRANSPORT
-═══════════════════════════════════════════ */
+/* TRANSPORT */
 function showRoute() {
   document.getElementById('route-result').classList.add('show');
   showToast('✓ Route found — 18 min');
 }
 
-/* ═══════════════════════════════════════════
-   AI CHAT
-═══════════════════════════════════════════ */
+/* AI CHAT */
 const aiResponses = {
-  'Translate my dorm form': "Sure! Upload your document in the Paperwork tab and I'll translate it instantly. Based on typical STU forms, you'll need: passport number, arrival date (DD/MM/YYYY), home address, and emergency contact. Field 7 (Zábezpeka) = €150 security deposit due within 3 days.",
+  'Translate my dorm form': "Sure! Upload your document in the Paperwork tab and I'll translate it instantly. Based on typical STU forms, you'll need: passport number, arrival date (DD/MM/YYYY), home address, and emergency contact. This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the responsible office directly. Field 7 (Zábezpeka) = €150 security deposit due within 3 days. ",
   'Find food nearby': "From Mlynská dolina: 🥙 Bufet STU (150m, €2–4, student canteen!), 🍕 Balkán Pizza (400m, €3–6, huge slices), ☕ Caffe Kút (200m, €1.5–3, great for studying). All rated by Erasmus students, not tourists!",
   "What's on this weekend?": "This weekend: 🚶 ESN Walking Tour (Sat 10AM, SNP Square, free!) 🏰 Bratislava Castle (Sun 11AM, €5 student) 🎨 Slovak Culture Night (Fri 7PM, €3) 🎵 Jazz at Žilina (Fri 8PM, €5) — calm and cozy, no party vibe!",
   'How do I get a student card?': "1️⃣ International Office, Building A, Room 101, Mon–Fri 9–12. 2️⃣ Bring passport + enrollment confirmation + 1 photo. 3️⃣ Pay €15. 4️⃣ Card ready in 3–5 days. Gives you 50% off transport + museum and restaurant discounts!",
   'Cheap places to eat near STU': "Best budget spots: 🥙 Bufet STU (on campus, €3.50 daily menu incl. soup), 🍜 Pho Saigon (10 min, €4–7, huge portions), 🥗 Fresh Market (8 min, €2–5, vegetarian options). Canteen menu changes daily!",
-  'Translate a Slovak document': "Go to the Paperwork tab and click the upload area! I translate Slovak, Czech, Hungarian and German. Uncertain translations get flagged in yellow, legal clauses get a special warning. I also have a verified field guide for STU dormitory forms!",
+  'Translate a Slovak document': "Go to the Paperwork tab and click the upload area! I translate Slovak, Czech, Hungarian and German. Uncertain translations get flagged in yellow, legal clauses get a special warning. I also have a verified field guide for STU dormitory forms! This translation is an AI aid. The original Slovak document remains legally binding. When unsure, contact the responsible office directly.",
   'How does public transport work?': "DPB basics: 🎫 Monthly student pass = €13.20 (vs €24). Buy at DPB office with student ID + passport. 📱 Always validate when boarding (fines = €50). Key lines: Bus 32 (dorm area), Tram 4 (city center), Bus 39 (Old Town). Check Transport tab for routes!"
 };
 const fallback = [
@@ -2595,10 +2649,25 @@ function sendAIInput(cid) {
   setTimeout(() => addMessage(cid, aiResponses[text] || fallback[msgCount++ % fallback.length], false), 700);
 }
 
-/* ═══════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════ */
+/* TOAST */
 let toastTimer;
+/* AI FULLSCREEN */
+let aiFullscreen = false;
+function toggleAIFullscreen() {
+  aiFullscreen = !aiFullscreen;
+  const grid = document.getElementById('assistant-grid');
+  const btn = document.getElementById('ai-fs-btn');
+  if (aiFullscreen) {
+    grid.classList.add('fs');
+    btn.textContent = '✕';
+    btn.title = 'Exit fullscreen';
+  } else {
+    grid.classList.remove('fs');
+    btn.textContent = '⛶';
+    btn.title = 'Fullscreen';
+  }
+}
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -2607,9 +2676,7 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ═══════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════ */
+/* INIT */
 // Session persistence — survive page refresh
 (function restoreSession() {
   try {
@@ -2627,10 +2694,10 @@ function showToast(msg) {
   } catch(e) {}
 })();
 
-/* ═══════════════════════════════════════════
+/* 
    WORDLE WORD LISTS (edit freely — one word per line logically)
    Answers = daily word candidates | Valid = accepted guesses
-═══════════════════════════════════════════ */
+ */
 const WORDLE_WORDS = {
   en: {
     answers: [
@@ -5142,6 +5209,7 @@ const WORDLE_WORDS = {
   }
 };
 
+
 // Language-specific keyboard layouts
 const KB_LAYOUTS = {
   en: {
@@ -5313,7 +5381,7 @@ function wBuildKeyboard(lang, guesses, target) {
     btn.textContent = key;
     const st = letterState[key];
     if (st) { btn.classList.remove('special'); btn.classList.add(st); }
-    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key === 'ENTER' ? 'Enter' : key });
+    btn.onclick = () => wHandleKey({ key: key === '⌫' ? 'Backspace' : key });
     return btn;
   };
 
